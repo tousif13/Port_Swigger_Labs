@@ -239,4 +239,64 @@ We logged in as administrator and solved the lab.
 
 ![image](https://user-images.githubusercontent.com/33444140/235372244-c8b2cfa7-55c7-40ce-af82-cd74c7ef7509.png)
 
-## Lab 11: 
+## Lab 11: Blind SQL injection with conditional responses
+
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The results of the SQL query are not returned, and no error messages are displayed. But the application includes a "Welcome back" message in the page if the query returns any rows.
+
+The database contains a different table called users, with columns called username and password. You need to exploit the blind SQL injection vulnerability to find out the password of the administrator user.
+
+To solve the lab, log in as the administrator user.
+
+### Sol:
+
+Open Burpsuite and select Proxy tab to intercept the connection to get the cookie id
+
+Send to repeater and off the intercepter in proxy tab.
+
+![image](https://user-images.githubusercontent.com/33444140/235512759-45ae911a-1abb-452b-93f1-c5cbe3e5a815.png)
+
+Perform SQL injection in place of cookie TrackingID and search for welcome back message
+    
+        TrackingId=x'+OR+1=1--
+
+![image](https://user-images.githubusercontent.com/33444140/235513214-a60afbcb-23cb-49f8-84d9-29987d0f6994.png)
+
+If we tried with `1=2` condition it won't get the result
+
+Now lookup for administrator user entry
+
+        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'--        
+        
+![image](https://user-images.githubusercontent.com/33444140/235513619-1337fc5e-3ba9-4286-b5b9-53566f86962f.png)
+
+Now we have to guess the password length by checking each numbers at one time.
+
+        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'+and+length(password)>1--
+        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'+and+length(password)>2--
+        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'+and+length(password)>3--
+        .
+        .
+        .
+
+Like that we have to check till the Welcome back messages would not return. In this lab we got upto 19 so the password length is 19.
+
+Now we go to Intruder tab and in payload positions and give substring to check the password string.
+
+        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'+and+substring(password,§1§,1)>='§a§'--
+        
+Select attack type as `Cluster Bomb` for multiple payload sets.
+
+In payloads tab , Select payload 1 and give upto 19 values (as per password length) 
+
+![image](https://user-images.githubusercontent.com/33444140/235516073-d7ab4fe5-bc75-414c-941c-4b1454419d79.png)
+
+In 2nd payload, Select `a-z` values
+
+![image](https://user-images.githubusercontent.com/33444140/235516336-79e0b676-ff0e-4680-b107-4d139fd8f2b4.png)
+
+In options, give grep match as `Welcome back`
+
+Now click `Start Attack`. we will get the password positions
+
