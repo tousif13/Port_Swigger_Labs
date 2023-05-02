@@ -288,13 +288,13 @@ Now we go to Intruder tab and in payload positions and give substring to check t
         
 Select attack type as `Cluster Bomb` for multiple payload sets.
 
-In payloads tab , Select payload 1 and give upto 19 values (as per password length) 
+In payloads tab , Select payload 1 and give numbers upto 19 (as per password length) 
 
-![image](https://user-images.githubusercontent.com/33444140/235516073-d7ab4fe5-bc75-414c-941c-4b1454419d79.png)
+![image](https://user-images.githubusercontent.com/33444140/235576972-203e54e9-67ee-4259-809d-ef419c0916f4.png)
 
-In 2nd payload, Select `a-z` values
+In 2nd payload, Select `a-z` values in `Brute forcer`
 
-![image](https://user-images.githubusercontent.com/33444140/235516336-79e0b676-ff0e-4680-b107-4d139fd8f2b4.png)
+![image](https://user-images.githubusercontent.com/33444140/235576906-b85acd4a-2014-4eeb-88ea-40a0790bd351.png)
 
 In options, give grep match as `Welcome back`
 
