@@ -14,3 +14,5 @@ To solve the lab, execute the whoami command to determine the name of the curren
 If we click a product and click check stock. then, we will get the ProductId & StoreId
 
 ![image](https://user-images.githubusercontent.com/33444140/236799000-1d2eeac3-d715-48e9-ae44-6bfa91b84c9f.png)
+
+Then, we are giving 
