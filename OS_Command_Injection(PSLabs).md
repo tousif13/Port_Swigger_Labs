@@ -45,3 +45,16 @@ To solve the lab, exploit the blind OS command injection vulnerability to cause 
 ![image](https://user-images.githubusercontent.com/33444140/236869514-9ddd8a6a-b1cf-459f-8acd-cf2a56154081.png)
 
 * If we run this request the page gets delayed to its loopback address and the lab is solved
+
+## Lab 3 : Blind OS command injection with output redirection
+
+This lab contains a blind OS command injection vulnerability in the feedback function.
+
+The application executes a shell command containing the user-supplied details. The output from the command is not returned in the response. However, you can use output redirection to capture the output from the command. There is a writable folder at:
+
+/var/www/images/
+The application serves the images for the product catalog from this location. You can redirect the output from the injected command to a file in this folder, and then use the image loading URL to retrieve the contents of the file.
+
+To solve the lab, execute the whoami command and retrieve the output
+
+### Sol :
