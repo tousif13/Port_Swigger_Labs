@@ -338,3 +338,68 @@ We will login with those details.
 Thus, Lab is solved.
 
 ## Lab: Blind SQL injection with conditional errors
+
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The results of the SQL query are not returned, and no error messages are displayed. But the application includes a "Welcome back" message in the page if the query returns any rows.
+
+The database contains a different table called users, with columns called username and password. You need to exploit the blind SQL injection vulnerability to find out the password of the administrator user.
+
+To solve the lab, log in as the administrator user.
+
+### Sol :
+
+Send the page request to repeater through proxy.
+
+Check the tracking id by giving `'`. We will get internal server error.
+
+![blind1](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/daa56920-5b69-43de-9cbc-f890b875af12)
+
+If we give double quotations `' '`, we won't get the error.
+
+![blind2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a1525648-c4e9-449e-bab5-21b3000fe229)
+
+Check the case condition with the tracking id for users info
+
+![blind3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/45169f0f-17dd-4ac2-a7f8-2ed7b493e058)
+
+Determine password length by giving
+
+![4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8c7e468d-e375-433a-8e03-a3e6dd1e1954)
+
+Send it to Intruder for payload information
+
+![5](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/3e9713fe-7b41-45eb-9c59-6bf397ee5ccd)
+
+Select numbers list and find out the password length
+
+![6](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/ae44fe2b-16b2-47ae-bc5a-0fddbee46a27)
+
+Here we can see it is 20 in length.
+
+Next we check for password letter.
+
+![7](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8a39d8e1-eea9-4688-b0a5-8a8f2d2124d3)
+
+Adding payload of `0-9` and `a-z`
+
+![8](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d4a2a654-3440-475e-bf38-e17c87cce9f4)
+
+Checking for each password letter we will get different length value that differs with others.
+
+![9](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c0c06ff6-c7ed-4316-afb9-58a8dd9f4107)
+
+        SUBSTR(password,1,1).....
+        SUBSTR(password,2,1).....
+        SUBSTR(password,3,1).....
+        .
+        .
+        .
+        
+We will get all 20 password letters and we will login as administrator
+
+![10](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/bd217603-13eb-4764-91ea-e8346e81669e)
+
+Thus, Lab is solved.
+
+## 
