@@ -430,5 +430,26 @@ We will enter the password and logged in as administrator.
 
 Thus, the lab is solved.
 
-## 
+## Lab: Blind SQL injection with time delays
 
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The results of the SQL query are not returned, and the application does not respond any differently based on whether the query returns any rows or causes an error. However, since the query is executed synchronously, it is possible to trigger conditional time delays to infer information.
+
+To solve the lab, exploit the SQL injection vulnerability to cause a 10 second delay.
+
+### Sol :
+
+Through Proxy we will send the request to intruder and get the Cookie ID
+
+![lab1](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/9b4ab146-c372-429f-9e15-ecf6200a4f86)
+
+We will give command `||pg_sleep(10)--` for time delays
+
+![2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/dcc27393-46e6-4738-b384-08eedfbd0343)
+
+Response will be delayed for 10 seconds and it got time delayed.
+
+Thus , the lab is solved.
+
+## 
