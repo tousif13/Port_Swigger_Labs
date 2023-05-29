@@ -259,17 +259,24 @@ Send to repeater and off the intercepter in proxy tab.
 
 Perform SQL injection in place of cookie TrackingID and search for welcome back message
     
-        TrackingId=x'+OR+1=1--
+        TrackingId=x'+AND+1=1--
 
-![image](https://user-images.githubusercontent.com/33444140/235513214-a60afbcb-23cb-49f8-84d9-29987d0f6994.png)
+![blind2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6d877d3e-9774-4820-ad18-3f1453f108ba)
+
 
 If we tried with `1=2` condition it won't get the result
+
+![blind3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f1c84a6d-3165-48c3-9e0f-a198e569550f)
+
+Now, we check for users tabele.
+
+![blind4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e08431e7-fae5-40c8-8277-4bf3a0fdb390)
 
 Now lookup for administrator user entry
 
         TrackingId=x'+union+select+'a'+from+users+where+username='administrator'--        
         
-![image](https://user-images.githubusercontent.com/33444140/235513619-1337fc5e-3ba9-4286-b5b9-53566f86962f.png)
+![blind5](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/4a9e5b58-d0ae-4464-8975-72603d10612b)
 
 Now we have to guess the password length by checking each numbers at one time.
 
@@ -280,23 +287,54 @@ Now we have to guess the password length by checking each numbers at one time.
         .
         .
 
-Like that we have to check till the Welcome back messages would not return. In this lab we got upto 19 so the password length is 19.
+Like that we have to check till the Welcome back messages would not return. In this lab we got upto 19 so the password length is 20.
 
-Now we go to Intruder tab and in payload positions and give substring to check the password string.
+We will go for payloads in Burp Intruderfor this.
 
-        TrackingId=x'+union+select+'a'+from+users+where+username='administrator'+and+substring(password,§1§,1)>='§a§'--
-        
-Select attack type as `Cluster Bomb` for multiple payload sets.
+![blind6](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/60cb616d-9141-4ae0-a6b2-604dcc1e3e69)
 
-In payloads tab , Select payload 1 and give numbers upto 19 (as per password length) 
+We will check for password length by running numbers payload.
 
-![image](https://user-images.githubusercontent.com/33444140/235576972-203e54e9-67ee-4259-809d-ef419c0916f4.png)
+![blind7](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/126e1742-f5c4-4c49-9bb4-98012b65868f)
 
-In 2nd payload, Select `a-z` values in `Brute forcer`
+As we search for `welcome back` message we will give it same for grep match.
 
-![image](https://user-images.githubusercontent.com/33444140/235576906-b85acd4a-2014-4eeb-88ea-40a0790bd351.png)
+![blind8](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/14ce2369-14bf-4c0e-9786-c128d11ed836)
 
-In options, give grep match as `Welcome back`
+If we click `start attack` the numbers payload run and it will show the password length.
 
-Now click `Start Attack`. we will get the password positions
+![blind9](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/9253b495-2383-4911-9606-6c20e12a2480)
 
+Now time for guessing administrator password
+
+![blind10](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/30549ea8-33d3-4dcd-b669-98a333dc5d06)
+
+We will give payload consists of `0-9` and `a-z` list.
+
+![blind11](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/48691187-f898-4b63-b8ca-d7ed0f616df4)
+
+We will get first password letter as payload output 
+
+![blind12](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0aa18605-5880-45c3-acf4-1c9aabc9c11b)
+
+Then we will change the line of 2nd letter, and so on as:
+
+        (SELECT SUBSTRING(password,1,1) FROM users.....
+        (SELECT SUBSTRING(password,2,1) FROM users.....
+        (SELECT SUBSTRING(password,3,1) FROM users.....
+        (SELECT SUBSTRING(password,4,1) FROM users.....
+        .
+        .
+        .
+        .
+After running for all 20 length letters. we will get the administrator password
+
+![blind13](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6131a956-3417-4b06-b120-9c656fc02086)
+
+We will login with those details.
+
+![blind14](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/42119809-35e0-49c7-840a-7fd5684c4a7e)
+
+Thus, Lab is solved.
+
+## Lab: Blind SQL injection with conditional errors
