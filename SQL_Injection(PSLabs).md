@@ -402,4 +402,33 @@ We will get all 20 password letters and we will login as administrator
 
 Thus, Lab is solved.
 
+## Lab: Visible error-based SQL injection
+
+This lab contains a SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie. The results of the SQL query are not returned.
+
+The database contains a different table called users, with columns called username and password. To solve the lab, find a way to leak the password for the administrator user, then log in to their account.
+
+### Sol :
+
+Through Proxy we will send the request to intruder and get the Cookie ID
+
+If we give `id='--` It accepts and won't generate any error.
+
+![1](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/3f9d757c-1a74-44c1-ac0c-94e7d090b14b)
+
+Now, we search for a username in users table. We got the first user itself as administrator
+
+![3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b78356d3-3d7f-49d2-901b-c6c9284c12aa)
+
+So if we substitute password with username we can get the password of administrator.
+
+![2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e4cc1135-a4e1-4e9c-8bba-f794094d3b3b)
+
+![4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/59077d3d-296a-46c4-99a9-d24a1fa404a2)
+
+We will enter the password and logged in as administrator.
+
+Thus, the lab is solved.
+
 ## 
+
