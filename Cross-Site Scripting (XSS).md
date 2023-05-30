@@ -52,3 +52,4 @@ It takes as comment and runs the script i.e. alert function
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/447d3c99-a617-4cfb-890f-0a776bba83fb)
 
+Thus , lab is solved.
