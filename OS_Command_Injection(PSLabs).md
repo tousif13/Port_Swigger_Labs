@@ -58,3 +58,5 @@ The application serves the images for the product catalog from this location. Yo
 To solve the lab, execute the whoami command and retrieve the output
 
 ### Sol :
+
+Intercepting the request 
