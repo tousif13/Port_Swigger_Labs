@@ -464,4 +464,19 @@ To solve the lab, log in as the administrator user.
 
 Through Proxy we will send the request to intruder and get the Cookie ID
 
+We will verify whether it responds for time delay.
+
+![1](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/978d821e-e6c9-42da-882a-bb1afa5415be)
+
+Determining password length for the username
+
+![2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/414ce5b5-244c-4f2c-9d6f-fc588d7aae42)
+
+Sending it to the intruder 
+
+![3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d866069f-a035-4748-b054-76f04a040826)
+
+Giving payload that consists of `0-9` and `a-z`
+
+![4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/35af7435-2e6f-4ed8-a989-45e147121e40)
 
