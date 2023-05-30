@@ -65,7 +65,9 @@ Intercepting the request
 
 ![3rdlab2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/94944035-f8a0-42c2-9998-6e51d2f521f2)
 
-![3rdlab3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b92051e9-355d-4c10-a7a9-4ada499613fb)
+We will redirect the output to a example file by using command
+
+        email=||whoami>/var/www/images/example.txt||
 
 ![3rdlab4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a341e796-b6f7-49c2-a639-527fab69c0e2)
 
