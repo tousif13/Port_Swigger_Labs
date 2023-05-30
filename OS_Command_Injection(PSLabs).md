@@ -60,3 +60,13 @@ To solve the lab, execute the whoami command and retrieve the output
 ### Sol :
 
 Intercepting the request 
+
+![3rdlab](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f8a310d1-39f4-4d3b-972f-9f810e8f9371)
+
+![3rdlab2](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/94944035-f8a0-42c2-9998-6e51d2f521f2)
+
+![3rdlab3](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b92051e9-355d-4c10-a7a9-4ada499613fb)
+
+![3rdlab4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a341e796-b6f7-49c2-a639-527fab69c0e2)
+
+![3rdlab5](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1722c173-2af3-4f76-a771-b5c0f84d3d26)
