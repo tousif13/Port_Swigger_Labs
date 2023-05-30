@@ -480,3 +480,23 @@ Giving payload that consists of `0-9` and `a-z`
 
 ![4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/35af7435-2e6f-4ed8-a989-45e147121e40)
 
+We will get a letter which we find out through high value in response received than others.
+
+We will find password letter further.
+
+        SUBSTR(password,1,1).....
+        SUBSTR(password,2,1).....
+        SUBSTR(password,3,1).....
+        .
+        .
+        .
+        
+At last, we will get the administrator password
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0ddbcb40-6d09-41ed-a9bf-bb1c570ce81a)
+
+Enter administrator username and its password
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0b179563-62a6-4323-9787-b962736e9371)
+
+Thus, lab is solved.
