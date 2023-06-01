@@ -133,3 +133,16 @@ Give `X-Original-URL: /admin/delete` HTTP header to delete the carlos user
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d9bd0752-847d-4833-98ea-faa21ad1dcc2)
 
 User got deleted and lab is solved.
+
+## Lab 6 : Method-based access control can be circumvented
+
+This lab implements access controls based partly on the HTTP method of requests. You can familiarize yourself with the admin panel by logging in using the credentials administrator:admin.
+
+To solve the lab, log in using the credentials wiener:peter and exploit the flawed access controls to promote yourself to become an administrator.
+
+### Sol :
+
+Login admin panel by using credentials : `administrator:admin`
+
+Go to admin panel and upgrade the carlos user. Intercept the request and send it to repeater.
+
