@@ -49,3 +49,23 @@ Replace the product image value with `/etc/passwd`
 We got the `passwd` file contents and lab is solved.
 
 ## Lab 3 : File path traversal, traversal sequences stripped non-recursively
+
+This lab contains a file path traversal vulnerability in the display of product images.
+
+The application strips path traversal sequences from the user-supplied filename before using it.
+
+To solve the lab, retrieve the contents of the /etc/passwd file.
+
+### Sol :
+
+Using Burp Suite to intercept and modify a request that fetches a product image
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/44bc4ec7-b32d-47b3-9fdb-450078b7218d)
+
+Replace the product image value with `....//....//....//etc/passwd`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6686f90b-43d8-4e85-a98d-4991d65c394e)
+
+We will get the passwd file and lab is solved.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d86721cd-bbd9-4007-8ef5-5d129f9fb3f1)
