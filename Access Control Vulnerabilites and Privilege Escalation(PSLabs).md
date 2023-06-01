@@ -118,3 +118,18 @@ If we try `/admin` we won't get the access.
 
 We will intercept the request and send it to repeater
 
+We will add new HTTP header : `X-Original-Url: /invalid` and we will see `Not Found` output
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6f5c9a26-d023-4894-b682-83e6146c355f)
+
+If we give `X-Original-Url: /admin` then we can get the access of admin panel.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8ee41ddf-4586-49f5-b41a-0fb1da463495)
+
+Give `/?username=carlos` in GET request.
+
+Give `X-Original-URL: /admin/delete` HTTP header to delete the carlos user
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d9bd0752-847d-4833-98ea-faa21ad1dcc2)
+
+User got deleted and lab is solved.
