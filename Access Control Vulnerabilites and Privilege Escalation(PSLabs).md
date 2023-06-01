@@ -103,3 +103,18 @@ Go to admin's panel and delete the carlos user.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/eca0bb29-ed60-4f24-8d97-fc9503586a02)
 
 User deleted successfully and lab got solved.
+
+## Lab 5 : URL-based access control can be circumvented
+
+This website has an unauthenticated admin panel at /admin, but a front-end system has been configured to block external access to that path. However, the back-end application is built on a framework that supports the X-Original-URL header.
+
+To solve the lab, access the admin panel and delete the user carlos.
+
+### Sol :
+
+If we try `/admin` we won't get the access.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/436d5861-a211-44eb-a949-588a29fda9fd)
+
+We will intercept the request and send it to repeater
+
