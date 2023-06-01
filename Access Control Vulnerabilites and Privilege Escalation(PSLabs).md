@@ -77,3 +77,29 @@ Click delete `carlos` user and set `Admin=True` and click forward
 After the request is forwarded, user gets deleted and lab is solved.
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/869fcbd2-e3f4-4ffb-ab53-41538b08edea)
+
+## Lab 4 : User role can be modified in user profile
+
+This lab has an admin panel at /admin. It's only accessible to logged-in users with a roleid of 2.
+
+Solve the lab by accessing the admin panel and using it to delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
+Login as `wiener:peter` credentials and give update email in the provided box.
+
+Intercept with Proxy and send it to the Repeater
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/84265e27-8a53-4fd3-84c1-e18d58f3b062)
+
+As you can see, we will get `roleid:1` in response. give `roleid:2` in request to get admin's access.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6492e934-d030-42a5-8c41-f5b92c10620f)
+
+Go to admin's panel and delete the carlos user.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/eca0bb29-ed60-4f24-8d97-fc9503586a02)
+
+User deleted successfully and lab got solved.
