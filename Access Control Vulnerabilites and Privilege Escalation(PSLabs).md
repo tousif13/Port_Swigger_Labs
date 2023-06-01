@@ -70,8 +70,6 @@ Set the Admin value as true i.e. `Admin=true` in Cookie section
 
 Forward the request we will get the admin panel.
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/2e77d6ce-c9ec-4406-8d9b-0fbfb5473785)
-
 Click delete `carlos` user and set `Admin=True` and click forward
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6c158ec9-9fc0-42ef-97f2-4a58808bdfe2)
