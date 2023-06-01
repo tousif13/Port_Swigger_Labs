@@ -44,4 +44,38 @@ Delete the `carlos` user to complete the lab.
 
 User is deleted successfully and lab is solved.
 
-## Lab 3 : 
+## Lab 3 : User role controlled by request parameter
+
+This lab has an admin panel at /admin, which identifies administrators using a forgeable cookie.
+
+Solve the lab by accessing the admin panel and using it to delete the user carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
+If we give `/admin` in URL, we will be restricted to access.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/32081d6c-9222-41e1-8a70-51291289effa)
+
+We will intercept the request of login form.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/9dc49d52-3abe-44d9-9ce8-577335587151)
+
+Forward the request we will get the `Admin=false` in Cookie section
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/239d765d-e157-4180-acd0-f262578e3219)
+
+Set the Admin value as true i.e. `Admin=true` in Cookie section
+
+Forward the request we will get the admin panel.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/2e77d6ce-c9ec-4406-8d9b-0fbfb5473785)
+
+Click delete `carlos` user and set `Admin=True` and click forward
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6c158ec9-9fc0-42ef-97f2-4a58808bdfe2)
+
+After the request is forwarded, user gets deleted and lab is solved.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/869fcbd2-e3f4-4ffb-ab53-41538b08edea)
