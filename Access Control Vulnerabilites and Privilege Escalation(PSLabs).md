@@ -72,7 +72,7 @@ Forward the request we will get the admin panel.
 
 Click delete `carlos` user and set `Admin=True` and click forward
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6c158ec9-9fc0-42ef-97f2-4a58808bdfe2)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/826462f4-5b80-481c-9f22-650a43e58677)
 
 After the request is forwarded, user gets deleted and lab is solved.
 
