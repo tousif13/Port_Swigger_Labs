@@ -245,3 +245,25 @@ To solve the lab, retrieve the administrator's password, then use it to delete c
 You can log in to your own account using the following credentials: wiener:peter
 
 ### Sol :
+
+Login with the `wiener:peter` credentials.
+
+Intercept the request by burpsuite to know the ID. Change the id to `administrator` and run it for the response.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d4f44412-966b-4fd6-b464-8a33ea3e50f6)
+
+We can see the admin's password from the response.
+
+Login with the administrator account
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d7edb283-4b84-49ba-97eb-33dda6a64ac5)
+
+Delete the carlos user and solved the lab.
+
+## Lab 11 : Insecure direct object references
+
+This lab stores user chat logs directly on the server's file system, and retrieves them using static URLs.
+
+Solve the lab by finding the password for the user carlos, and logging into their account
+
+### Sol :
