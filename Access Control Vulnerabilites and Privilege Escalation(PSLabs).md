@@ -178,3 +178,15 @@ You can log in to your own account using the following credentials: wiener:peter
 
 ### Sol :
 
+Login with the `wiener:peter` credentials.
+
+Intercept the request in Burpsuite after clicking `My Account`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/4c8449b3-ae76-4686-96d1-b87331a758ff)
+
+We got the id of wiener and replace the id of wiener to carlos and forward the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c2e02cb0-ee6f-4078-b93b-8a9309fb9ddd)
+
+We got the carlos API key. Submit it and the lab is solved.
+
