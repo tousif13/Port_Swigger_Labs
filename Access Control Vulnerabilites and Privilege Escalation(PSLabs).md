@@ -146,3 +146,35 @@ Login admin panel by using credentials : `administrator:admin`
 
 Go to admin panel and upgrade the carlos user. Intercept the request and send it to repeater.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6de530b6-c597-4797-b07a-7247168942d3)
+
+Open another incognito window and open the lab with `wiener:peter` credentials.
+
+Intercept the request and send it to repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/18b29841-9d91-4a8c-ba2d-128cca7de149)
+
+Attempt to re-promote carlos user using `wiener's` cookie ID and paste it in Admin's cookie ID field. We will get `Unauthorized` message
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c878f71d-c11a-4114-9477-67a2e5f1465d)
+
+After changing `POST` to `POSTX`. If we run again then we will get `Missing parameter` message.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/58d6ab48-f37c-4164-bd38-0322716deff4)
+
+Right click and choose `change request method` and give `wiener` as username and change Cookie ID of to `wiener's` one.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/12b0b6ee-c9b7-4f2d-af97-0d897309ecbd)
+
+Thus, lab got solved.
+
+## Lab 7 : User ID controlled by request parameter
+
+This lab has a horizontal privilege escalation vulnerability on the user account page.
+
+To solve the lab, obtain the API key for the user carlos and submit it as the solution.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
