@@ -190,3 +190,37 @@ We got the id of wiener and replace the id of wiener to carlos and forward the r
 
 We got the carlos API key. Submit it and the lab is solved.
 
+## Lab 8 : User ID controlled by request parameter, with unpredictable user IDs
+
+This lab has a horizontal privilege escalation vulnerability on the user account page, but identifies users with GUIDs.
+
+To solve the lab, find the GUID for carlos, then submit his API key as the solution.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
+Find a blog post by carlos
+
+By clicking on carlos user, we will get the User ID of carlos
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/798a5707-661a-48e2-937d-09f75d2d540a)
+
+Login using `wiener:peter` credentials and intercept the request of `My Account` action.
+
+We will get the User ID of wiener's. Replace the value of carlos and forward the request. We will get carlos user.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f3efb396-8093-4de1-8d33-bf766085fc60)
+
+Submit the carlo's API key and solved the lab.
+
+## Lab 9 : User ID controlled by request parameter with data leakage in redirect
+
+This lab contains an access control vulnerability where sensitive information is leaked in the body of a redirect response.
+
+To solve the lab, obtain the API key for the user carlos and submit it as the solution.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
