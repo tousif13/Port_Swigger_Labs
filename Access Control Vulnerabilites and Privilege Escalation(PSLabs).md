@@ -298,3 +298,25 @@ To solve the lab, log in using the credentials wiener:peter and exploit the flaw
 
 ### Sol :
 
+Login using `administrator:admin` credentials.
+
+Browse to the admin panel and promote carlos and intercept the request and send it to repeater.
+
+Open incoginto window and login with `wiener:peter` credentials.
+
+Intercept the request of wiener and retreive the Cookie ID
+
+Replace the carlos cookie ID with wiener cookie ID and change the username to `wiener`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b5c11a4a-52e1-41b8-805d-24ab953f7fe0)
+
+Thus, the lab is solved.
+
+## Lab 13 : Referer-based access control
+
+This lab controls access to certain admin functionality based on the Referer header. You can familiarize yourself with the admin panel by logging in using the credentials administrator:admin.
+
+To solve the lab, log in using the credentials wiener:peter and exploit the flawed access controls to promote yourself to become an administrator.
+
+### Sol :
+
