@@ -224,3 +224,24 @@ You can log in to your own account using the following credentials: wiener:peter
 
 ### Sol :
 
+Login with the `wiener:peter` credentials.
+
+Intercept the request and send it to repeater
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/98ce1ae5-f76b-419c-b219-1550690c346c)
+
+We can see the API key and replace the wiener user with carlos and see the response.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/159d1d61-da5d-40cc-a4d8-9c4d71d46259)
+
+We got the API key of the user `carlos` and submit to solve the lab.
+
+## Lab 10 : User ID controlled by request parameter with password disclosure
+
+This lab has user account page that contains the current user's existing password, prefilled in a masked input.
+
+To solve the lab, retrieve the administrator's password, then use it to delete carlos.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
