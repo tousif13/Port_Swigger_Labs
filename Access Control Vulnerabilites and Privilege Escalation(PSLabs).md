@@ -267,3 +267,34 @@ This lab stores user chat logs directly on the server's file system, and retriev
 Solve the lab by finding the password for the user carlos, and logging into their account
 
 ### Sol :
+
+Click `Live Chat` and send a message.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/64da36b3-b7ab-4fcb-b360-05f6764ccbf8)
+
+Intercept the requests of `View Transcript`
+
+Forward the requests of Transcript untill transcript file is visible.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8b50b89a-49a0-4676-af10-6556d271f143)
+
+After changing the transcript file as `transcript/1.txt`, forward the request. `1.txt` file is downloaded.
+
+Open the file and we can see the password.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/7529bb2b-54fc-4096-94bc-011aff68c1c3)
+
+Login with the carlos and the retreived password credentials.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/ea221490-7c37-4d8c-b511-e970b8a0633f)
+
+Thus, the lab is solved.
+
+## Lab 12 : Multi-step process with no access control on one step
+
+This lab has an admin panel with a flawed multi-step process for changing a user's role. You can familiarize yourself with the admin panel by logging in using the credentials administrator:admin.
+
+To solve the lab, log in using the credentials wiener:peter and exploit the flawed access controls to promote yourself to become an administrator.
+
+### Sol :
+
