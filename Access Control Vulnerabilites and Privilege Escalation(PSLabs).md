@@ -320,3 +320,20 @@ To solve the lab, log in using the credentials wiener:peter and exploit the flaw
 
 ### Sol :
 
+Login using the `administrator:admin` credentials.
+
+Go to admin panel and promote the `carlos` user and intercept the request.
+
+Open incognito window ,login with `wiener:peter` credentials and intercept the `wiener` request.
+
+In repeater, replace the admin's cookie ID with wiener's cookie ID and run the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/db447f1b-83de-431a-bbf8-4f793692565e)
+
+Click the `Follow Redirection` button to redirect the request. we can see the `Unauthorized` message.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1bd4a531-09be-461d-8737-1fc5caa831b1)
+
+So replace the carlos user as weiner in the request and run the response.
+
+Thus, the lab got solved.
