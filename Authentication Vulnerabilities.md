@@ -41,3 +41,32 @@ In the above image, we got the response code as `302` which is matching password
 Login with the found out username and password. ( Username `ec2-user` Password `11111111` in this case)
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/47ee3f19-df59-494e-9f31-f8223342aa95)
+
+## Lab 2: Username enumeration via subtly different responses
+
+This lab is subtly vulnerable to username enumeration and password brute-force attacks. It has an account with a predictable username and password, which can be found in the given wordlists.
+
+To solve the lab, enumerate a valid username, brute-force this user's password, then access their account page.
+
+### Sol :
+
+Give any username and password. It will give invalid response.
+
+Intercept the request at `HTTP History` in Proxy.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d566e218-cdb0-4215-ba7e-6658be813e49)
+
+Send it to the `Intruder`
+
+Give payload symbol for username only for now.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/85997ddb-c27f-4c45-b08a-dac75045435c)
+
+Under options, in `Grep-Extract` field. add `Invalid Username or Password` attribute to it.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/5b569992-fe45-476f-9d09-1e8130dcc49f)
+
+Start the attack by clicking `start attack`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c308daa7-d985-4485-837e-f8d9a87c1ee1)
+
