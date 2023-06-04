@@ -89,3 +89,31 @@ Login with the found out username and password. ( Username `alterwind` Password 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d4bed274-d4d9-4968-bde0-853438982d6b)
 
 Thus, lab is solved.
+
+## Lab : 2FA simple bypass
+
+This lab's two-factor authentication can be bypassed. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, access Carlos's account page.
+
+### Sol :
+
+We're given with our own credentials. Login with the `wiener:peter`
+
+Click the `Email client` button to access the emails. You will get the security code in email.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0c13b3cf-87b2-4203-bf15-23572d18166a)
+
+Submit the security code. we will get `/my-account` page in URL.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/51fa11ee-edb0-4402-89ae-ef9a543153e4)
+
+Log out of `wiener's` account.
+
+Login using victim's credentials (`carlos:montoya`).
+
+To bypass 2FA, give `/my-account` in URL. This will bypass the 2FA of carlos.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1d15aa62-da7b-4327-9bd3-d8f760cb0d03)
+
+Thus, lab is solved.
+
+## Lab : 
