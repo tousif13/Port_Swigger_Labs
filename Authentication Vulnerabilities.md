@@ -42,6 +42,8 @@ Login with the found out username and password. ( Username `ec2-user` Password `
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/47ee3f19-df59-494e-9f31-f8223342aa95)
 
+Thus, lab is solved.
+
 ## Lab 2: Username enumeration via subtly different responses
 
 This lab is subtly vulnerable to username enumeration and password brute-force attacks. It has an account with a predictable username and password, which can be found in the given wordlists.
@@ -68,5 +70,22 @@ Under options, in `Grep-Extract` field. add `Invalid Username or Password` attri
 
 Start the attack by clicking `start attack`
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c308daa7-d985-4485-837e-f8d9a87c1ee1)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e210a87c-4b2c-483d-a17f-2f2cec2052be)
 
+We can see the `alterwind` username has hit the payload as we got unusual pattern than others that it doesn't have `.` at end.
+
+Now clear the payload symbol of username and add it to the password field. The username we identified should be given in the username field. In payload options, use the passwords given in `Canditate Passwords` list.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/37cac23b-fb0c-4e2b-8523-c2a81ec69585)
+
+Start the attack
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/ed95f864-c583-4d55-a026-a05d457df88e)
+
+In the above image, we got the response code as `302` which is matching password for the username given and others give response code as `200`. 
+
+Login with the found out username and password. ( Username `alterwind` Password `1234567` in this case)
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d4bed274-d4d9-4968-bde0-853438982d6b)
+
+Thus, lab is solved.
