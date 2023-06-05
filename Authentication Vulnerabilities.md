@@ -104,7 +104,22 @@ After attempting multiple invalid logins, our IP will be blocked saying " `You h
 
 `X-Forwarded-For` header is supported to spoof our IP address and bypass this mechanism.
 
-If we check with invalid usernames, we will get same response time
+If we check with invalid usernames, we will get same response time as less time.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e45454b7-fe57-405a-a9cd-bfa43af4945e)
+
+If we check with valid username (as given `wiener:peter`), we will get response time according to the password length.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/263bfaf8-2dc9-41f9-a70c-ee56a763a224)
+
+Give `wiener:peter` credentials and send it to Intruder
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/ca5c4e50-f4cf-43c0-8d89-5175f6b6a0b2)
+
+
+
+
+
 ## Lab : 2FA simple bypass
 
 This lab's two-factor authentication can be bypassed. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, access Carlos's account page.
