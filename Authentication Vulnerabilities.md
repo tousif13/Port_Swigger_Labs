@@ -126,19 +126,17 @@ Give first payload as numbers from `1-100`
 
 Take 2nd payload as simple list and give usernames as payload from `Canditate Usernames`.
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f51e041d-9a6e-40da-a652-6afb24a5a9a7)
-
 Start the attack and enable the `Response received and Response Completed` columns and we will see below output that one username will show more response time
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/edc942e1-8e4b-4e89-bbea-272992e078f8)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f51e041d-9a6e-40da-a652-6afb24a5a9a7)
 
 we got `am` user and replace it in the username field and add payload symbol to the password field and replace the `Simple list` with the `Canditate Passwords` list passwords.
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/98edeeeb-b2f4-4970-bb5f-90b549ee00dd)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/edc942e1-8e4b-4e89-bbea-272992e078f8)
 
 We got the username `am` and password `nicole`. Login with this credentials.
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/bac3d3d0-1f05-4d82-ace3-bf9df08f0e4a)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/98edeeeb-b2f4-4970-bb5f-90b549ee00dd)
 
 Thus, the lab is solved.
 
