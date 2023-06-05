@@ -90,6 +90,21 @@ Login with the found out username and password. ( Username `alterwind` Password 
 
 Thus, lab is solved.
 
+## Lab 3: Username enumeration via response timing 
+
+This lab is vulnerable to username enumeration using its response times. To solve the lab, enumerate a valid username, brute-force this user's password, then access their account page
+
+### Sol :
+
+Intercept the request of login from `HTTP history` in Proxy and send it to repeater.
+
+After attempting multiple invalid logins, our IP will be blocked saying " `You have made too many incorrect login attempts.` ". 
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/cd865f1b-5fd0-4774-a935-c315a181a8d9)
+
+`X-Forwarded-For` header is supported to spoof our IP address and bypass this mechanism.
+
+If we check with invalid usernames, we will get same response time
 ## Lab : 2FA simple bypass
 
 This lab's two-factor authentication can be bypassed. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, access Carlos's account page.
@@ -115,5 +130,3 @@ To bypass 2FA, give `/my-account` in URL. This will bypass the 2FA of carlos.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1d15aa62-da7b-4327-9bd3-d8f760cb0d03)
 
 Thus, lab is solved.
-
-## Lab : 
