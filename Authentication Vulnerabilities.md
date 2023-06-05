@@ -140,6 +140,26 @@ We got the username `am` and password `nicole`. Login with this credentials.
 
 Thus, the lab is solved.
 
+## Lab 4: Broken brute-force protection, IP block
+
+This lab is vulnerable due to a logic flaw in its password brute-force protection. To solve the lab, brute-force the victim's password, then log in and access their account page
+
+### Sol :
+
+Login with invalid credentials with more than 3 times. It will block our IP saying Please try again.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/74545990-e3b7-41b5-a52d-c2e62d6b9375)
+
+Enter invalid credentials and send it to Intruder.
+
+Create `pitchfork` attack type with payload symbols for both username and password.
+
+In `Resource Pool` tab, create a new resource pool by setting `Maximum conccurent requests` to `1`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/89ed999c-b1d6-43a4-a1d9-d5a0da5b45b4)
+
+
+
 ## Lab : 2FA simple bypass
 
 This lab's two-factor authentication can be bypassed. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, access Carlos's account page.
