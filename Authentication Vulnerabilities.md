@@ -116,9 +116,31 @@ Give `wiener:peter` credentials and send it to Intruder
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/ca5c4e50-f4cf-43c0-8d89-5175f6b6a0b2)
 
+Add payload symbols for the `X-Forwarder & username` fields.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/28bf5795-d949-41e0-93e2-70085a85aeb2)
 
+Give payload attack type as `Pitchfork`
 
+Give first payload as numbers from `1-100`
+
+Take 2nd payload as simple list and give usernames as payload from `Canditate Usernames`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/f51e041d-9a6e-40da-a652-6afb24a5a9a7)
+
+Start the attack and enable the `Response received and Response Completed` columns and we will see below output that one username will show more response time
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/edc942e1-8e4b-4e89-bbea-272992e078f8)
+
+we got `am` user and replace it in the username field and add payload symbol to the password field and replace the `Simple list` with the `Canditate Passwords` list passwords.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/98edeeeb-b2f4-4970-bb5f-90b549ee00dd)
+
+We got the username `am` and password `nicole`. Login with this credentials.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/bac3d3d0-1f05-4d82-ace3-bf9df08f0e4a)
+
+Thus, the lab is solved.
 
 ## Lab : 2FA simple bypass
 
