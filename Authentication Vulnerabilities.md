@@ -185,3 +185,41 @@ To bypass 2FA, give `/my-account` in URL. This will bypass the 2FA of carlos.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1d15aa62-da7b-4327-9bd3-d8f760cb0d03)
 
 Thus, lab is solved.
+
+## Lab : Password reset broken logic
+
+This lab's password reset functionality is vulnerable. To solve the lab, reset Carlos's password then log in and access his "My account" page
+
+### Sol :
+
+Click `Forget Password` link and give our own username `wiener` 
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/451b4780-b78e-4f4f-9b8f-74247417d928)
+
+Click `Email Client` to see the reset password link.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/525c303c-e828-43fa-8157-97fe5daad55d)
+
+Click the link to reset the password by giving a new password. (Giving our own password). Click Submit.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/63b2e881-5368-45f9-9000-2bd6cd435a5f)
+
+Find the request of forgot password `HTTP history`. Send it to Repeater.
+
+If we remove the value of `forgot-password-token`, it still takes it and responds
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d3d5a0e9-2fb6-4886-ba1e-bbe3f90306d3)
+
+Again click `Forgot Password` and give username `wiener` and reset the password by clicking the link
+
+Find the request from `HTTP history` and send it to repeater.
+
+Remove the `forgot-password-token` values from both header and body and change the username to `carlos`.
+
+Login with the `carlos:12345` credentials.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/80e760e8-4521-4454-b211-cb362ed22e7f)
+
+Thus, the lab is solved.
+
+## Lab : 
