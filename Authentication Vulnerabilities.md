@@ -154,9 +154,30 @@ Enter invalid credentials and send it to Intruder.
 
 Create `pitchfork` attack type with payload symbols for both username and password.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b82f9cc7-3baa-482b-a577-3b87069e67e0)
+
 In `Resource Pool` tab, create a new resource pool by setting `Maximum conccurent requests` to `1`.
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/89ed999c-b1d6-43a4-a1d9-d5a0da5b45b4)
+
+By only sending one request at a time, you can ensure that your login attempts are sent to the server in the correct order.
+
+Add a list of payloads that alternates between our username (`wiener`) and carlos. Make sure that your username is first and that carlos is repeated at least 100 times.
+
+
+
+
+
+Edit the list of candidate passwords and add our own password `peter` before each one
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/5770e479-f92b-47e8-9d95-aa940644c47a)
+
+
+
+
+
+
+
 
 
 
