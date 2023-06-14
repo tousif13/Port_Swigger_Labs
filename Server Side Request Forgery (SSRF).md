@@ -86,4 +86,46 @@ If we give `http://127.1/%2561dmin/delete?username=carlos` it will delete the us
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/dbe823c1-6808-4171-9703-7f7a1b5245ce)
 
-## Lab 4:
+## Lab 4: SSRF with whitelist-based input filter
+
+This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at http://localhost/admin and delete the user carlos.
+
+The developer has deployed an anti-SSRF defense you will need to bypass.
+
+### Sol :
+
+Check the product stock and intercept the request. We will get the `stockApi` parameter.
+
+Now give `stockApi` parameter value as `http://127.0.0.1/` and run the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e52e0581-99e8-4e48-b1bd-934b02f8e045)
+
+It will shows as `Bad Request`.
+
+Now change it to `http://username@stock.weliketoshop.net/` and run the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/24d6c659-fad7-4f5c-b6bb-145f5e3baa51)
+
+It will show as `Internal Server Error` indicating that the URL parser supports embedded credentials.
+
+Append a # to the username and observe that the URL is now rejected.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0a5ce00b-8dea-401d-93f8-c59b69210b35)
+
+Now change the `#` as `%2523` as encoded form.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8dca60b0-d020-400b-bff4-8e9afb4c0ae2)
+
+It shows Internal Server Error  indicating that the server may have attempted to connect to `username`.
+
+To access and delete a user as admin, give the below payload in the `stockApi` parameter.
+
+      http://localhost:80%2523@stock.weliketoshop.net/admin/delete?username=carlos
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/97c51288-7d04-4f79-b4f7-04dcb75be04b)
+
+Thus, the lab is solved.
+
+## Lab 5: SSRF with filter bypass via open redirection vulnerability
