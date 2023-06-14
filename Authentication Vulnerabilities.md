@@ -162,24 +162,25 @@ In `Resource Pool` tab, create a new resource pool by setting `Maximum conccuren
 
 By only sending one request at a time, you can ensure that your login attempts are sent to the server in the correct order.
 
-Add a list of payloads that alternates between our username (`wiener`) and carlos. Make sure that your username is first and that carlos is repeated at least 100 times.
+Add a list of payloads that alternates between our username (`wiener`) and carlos. Make sure that your username is first and that carlos is repeated at least 100 times. Add it to the Payload 1 of simple list.
 
-
-
-
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/462701bc-720a-4ecb-b4bb-e7203eecccd9)
 
 Edit the list of candidate passwords and add our own password `peter` before each one
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/5770e479-f92b-47e8-9d95-aa940644c47a)
 
+Add it to the 2nd Payload.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/9ba7c4dd-4f53-4056-8351-69791abed501)
 
+Start the attack.
 
+When the attack finishes, filter the results to hide responses with a `200` status code. Sort the remaining results by username. There should only be a single `302` response for requests with the username `carlos`. Make a note of the password from the Payload 2 column
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/22a315f7-5e46-44cb-92e3-4c107f387f4f)
 
-
-
-
+Thus, the lab is solved.
 
 ## Lab : 2FA simple bypass
 
