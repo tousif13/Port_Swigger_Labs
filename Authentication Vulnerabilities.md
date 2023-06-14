@@ -314,18 +314,17 @@ Give character set as `0123456789`
 
 Start the attack.
 
+After finished running 10,000 payloads. One will get `302` as response, which is the 2FA code of the carlos user.
 
+Load the 302 response in the browser by right click and selecting `Show response in browser`.
 
-
-
-
+Thus, the lab is solved.
 
 ## Lab 9: 2FA bypass using a brute-force attack
 
 This lab's two-factor authentication is vulnerable to brute-forcing. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, brute-force the 2FA code and access Carlos's account page.
 
 ### Sol :
-
 
 
 ## Lab 10: Brute-forcing a stay-logged-in cookie
