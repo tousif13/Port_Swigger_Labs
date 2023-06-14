@@ -182,7 +182,80 @@ When the attack finishes, filter the results to hide responses with a `200` stat
 
 Thus, the lab is solved.
 
-## Lab : 2FA simple bypass
+## Lab 5: Username enumeration via account lock
+
+This lab is vulnerable to username enumeration. It uses account locking, but this contains a logic flaw. To solve the lab, enumerate a valid username, brute-force this user's password, then access their account page.
+
+### Sol :
+
+With Burp running, intercept the login page and submit an invalid username and password. 
+
+Send the login request to Burp Intruder.
+
+Select the `Cluster Bomb` payload and give payload symbols for username and blank symbols at the end of the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/67f9e800-e47b-4c8e-ac54-e5c0eb719de1)
+
+Select Payload 1 and give `Usernames` from `canditate usernames` list provided.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/5a7190f6-ff91-47a8-a059-ac57dfd73258)
+
+In 2nd Payload, Give `Null payloads` as type and set payload generation no as `5`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d080a9b7-c368-406f-a056-8c23c949b9c6)
+
+Start the attack.
+
+In the results, we can see that the responses for one of the usernames were longer than responses when using other usernames. Make a note of this username.
+
+Study the response more closely and notice that it contains a different error message: `You have made too many incorrect login attempts.`
+
+Create a new Burp request of login, send it to the Intruder and this time select the `Sniper` attack and replace the username value with the username we got previous step. Set the payload symbols to the password parameter.
+
+In the payload, give the passwords provided by `canditate passwords` list
+
+In the results, look at the grep extract column. Notice that there are a couple of different error messages, but one of the responses did not contain any error message. Make a note of this password.
+
+Wait for a minute to allow the account lock to reset. Give the found out username and password values.
+
+
+
+
+
+
+
+
+
+
+## Lab 6: Broken brute-force protection, multiple credentials per request
+
+This lab is vulnerable due to a logic flaw in its brute-force protection. To solve the lab, brute-force Carlos's password, then access his account page.
+
+### Sol :
+
+With Burp running, Intercept the login page. Send it to the Repeater 
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b928dfbf-4533-4492-97e0-ddd871cba57c)
+
+Replace the username value with `carlos`
+
+Replace the password value with the list values provided by `canditate passwords`. Seperate the values in `" "` and `,` as shown below in image.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/68a67dec-dc9d-4846-b099-472587c441e2)
+
+Run the request, we will get the response as `302 Found`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/05fe48f9-0093-4f84-967b-f0f680f70d9c)
+
+Right click and select `Show response in browser`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/43cc8752-2063-4801-8387-4f946ce92ad5)
+
+The response will run and logged in as `carlos` user and lab is solved.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/29496260-dd28-4e5b-ae6d-572292d52682)
+
+## Lab 7: 2FA simple bypass
 
 This lab's two-factor authentication can be bypassed. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, access Carlos's account page.
 
@@ -208,7 +281,73 @@ To bypass 2FA, give `/my-account` in URL. This will bypass the 2FA of carlos.
 
 Thus, lab is solved.
 
-## Lab : Password reset broken logic
+## Lab 8: 2FA broken logic
+
+This lab's two-factor authentication is vulnerable due to its flawed logic. To solve the lab, access Carlos's account page
+
+### Sol :
+
+With Burp running, intercept the request of 2FA verification process. We can see that `verify` parameter in `/login2` is used to determine which user's account is being accessed.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8d318211-6b28-4d8a-ba23-e19150d6b375)
+
+Send it to the Repeater and Log out of the account.
+
+Change the `verify` parameter to `carlos` and run it. This ensures that a temporary 2FA code is generated for Carlos
+
+Login again with `wiener:peter` credentials. Give an invalid 2FA code.
+
+Intercept the `/login2` request and send it to `Intruder`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8db53885-62e2-4dbe-9f41-48d4fb5c89dd)
+
+Replace the `verify` parameter to `carlos` and give payload symbols to the `mfa-code` parameter.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/279ae69b-0df9-430d-86b2-0bd2dfa7e96c)
+
+In the payload options, Select type as `Brute Forcer`.
+
+Give character set as `0123456789`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a7910178-3c16-4135-b3f4-a3638e20a86c)
+
+Start the attack.
+
+
+
+
+
+
+
+## Lab 9: 2FA bypass using a brute-force attack
+
+This lab's two-factor authentication is vulnerable to brute-forcing. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, brute-force the 2FA code and access Carlos's account page.
+
+### Sol :
+
+
+
+## Lab 10: Brute-forcing a stay-logged-in cookie
+
+This lab allows users to stay logged in even after they close their browser session. The cookie used to provide this functionality is vulnerable to brute-forcing.
+
+To solve the lab, brute-force Carlos's cookie to gain access to his "My account" page.
+
+### Sol :
+
+
+
+
+## Lab 11: Offline password cracking
+
+This lab stores the user's password hash in a cookie. The lab also contains an XSS vulnerability in the comment functionality. To solve the lab, obtain Carlos's stay-logged-in cookie and use it to crack his password. Then, log in as carlos and delete his account from the "My account" page.
+
+### Sol :
+
+
+
+
+## Lab 12: Password reset broken logic
 
 This lab's password reset functionality is vulnerable. To solve the lab, reset Carlos's password then log in and access his "My account" page
 
@@ -244,4 +383,18 @@ Login with the `carlos:12345` credentials.
 
 Thus, the lab is solved.
 
-## Lab : 
+## Lab 13: Password reset poisoning via middleware
+
+This lab is vulnerable to password reset poisoning. The user carlos will carelessly click on any links in emails that he receives. To solve the lab, log in to Carlos's account. You can log in to your own account using the following credentials: wiener:peter. Any emails sent to this account can be read via the email client on the exploit server.
+
+### Sol :
+
+
+
+
+
+## Lab 14: Password brute-force via password change
+
+This lab's password change functionality makes it vulnerable to brute-force attacks. To solve the lab, use the list of candidate passwords to brute-force Carlos's account and access his "My account" page.
+
+### Sol :
