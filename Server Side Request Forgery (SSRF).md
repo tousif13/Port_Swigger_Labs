@@ -129,3 +129,40 @@ To access and delete a user as admin, give the below payload in the `stockApi` p
 Thus, the lab is solved.
 
 ## Lab 5: SSRF with filter bypass via open redirection vulnerability
+
+This lab has a stock check feature which fetches data from an internal system.
+
+To solve the lab, change the stock check URL to access the admin interface at `http://192.168.0.12:8080/admin` and delete the user `carlos`.
+
+The stock checker has been restricted to only access the local application, so you will need to find an open redirect affecting the application first.
+
+### Sol :
+
+Check the stock of a product and intercept the request using burpsuite and send it to the repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d2928bc8-5241-4b08-9f93-57252e29d092)
+
+Tamper with `stockApi` parameter by passing request as admin's access by giving `http://192.168.0.12:8080/admin` as parameter value.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/744ff51e-d5b5-4e82-b81a-00bbda2fa0b7)
+
+It says `Bad Request`.
+
+Click `next product` and observe that the `path` parameter is placed into the Location header of a redirection response, resulting in an open redirection
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/5f4209b3-0eed-4068-9e79-bfa6e74b77a8)
+
+Feed the below payload to the `stockApi` parameter that exploits the open redirection vulnerability, and redirects to the admin interface
+
+      /product/nextProduct?path=http://192.168.0.12:8080/admin
+
+It will give us admin interface.
+
+Amend the path to delete the target user:
+
+      /product/nextProduct?path=http://192.168.0.12:8080/admin/delete?username=carlos
+      
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d072b3da-1c49-41df-95ec-e7cbfb2cf003)
+
+Thus, the lab is solved.
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e88a8e87-3250-4ff2-b3cc-7d5c1e8a4f82)
