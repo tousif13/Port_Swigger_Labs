@@ -48,10 +48,6 @@ You can log in to your own account using the following credentials: `wiener:pete
       </html>
       
  * Click `View exploit`. Observe that the exploit works - you have landed on the log page and your API key is in the URL
- 
- 
 * Go back to the exploit server and click `Deliver exploit to victim`
 * Click `Access log`, retrieve and submit the victim's API key to complete the lab.
-
-
 * Thus, the lab is solved
