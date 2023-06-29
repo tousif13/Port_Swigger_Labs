@@ -128,3 +128,14 @@ To solve the lab, exfiltrate the contents of the /etc/hostname file.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/338bcfe1-c2d9-4e4b-ba2c-6209faea1a56)
 
 * Enter the `x` code to solve the lab. Thus, the lab is solved.
+
+## Lab 6: Exploiting blind XXE to retrieve data via error messages
+
+This lab has a "Check stock" feature that parses XML input but does not display the result.
+
+To solve the lab, use an external DTD to trigger an error message that displays the contents of the /etc/passwd file.
+
+The lab contains a link to an exploit server on a different domain where you can host your malicious DTD.
+
+### Sol :
+
