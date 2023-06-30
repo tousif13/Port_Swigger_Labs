@@ -26,4 +26,12 @@ In body section, give following HTML code:
     <script>
         document.forms[0].submit();
     </script>
-    
+
+* Right-click on the request and select `Engagement tools -> Generate CSRF PoC`. Enable the option to include an `auto-submit script` and click `Regenerate`.
+* Copy the HTML code and paste it into the exploit server body code.
+* Change the email parameter value.
+* Deliver it to the victim.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a0cfa7ea-e6c1-47ae-a2cf-98a1b7320d09)
+
+* Thus, the lab is solved.
