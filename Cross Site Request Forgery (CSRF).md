@@ -168,3 +168,32 @@ You can log in to your own account using the following credentials: wiener:peter
 
 ### Sol :
 
+* Open Burp's browser and log in to your account. Submit the "Update email" form, and find the resulting request in your Proxy history
+* Send the request to Burp Repeater and observe that the value of the csrf body parameter is simply being validated by comparing it with the csrf cookie.
+  
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a30fc854-f006-4cd8-b6b8-5f888169534b)
+
+* Perform a search, send the resulting request to Burp Repeater, and observe that the search term gets reflected in the Set-Cookie header. Since the search function has no CSRF protection, you can use this to inject cookies into the victim user's browser.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/7bf18124-03f4-437f-b241-933bb133a53a)
+
+* Create and host a proof of concept exploit as described in the solution to the CSRF vulnerability with no defenses lab, ensuring that your CSRF token is set to "fake". The exploit should be created from the email change request.
+* Remove the auto-submit `<script>` block and instead add the following code to inject the cookie and submit the form
+
+      <img src="https://YOUR-LAB-ID.web-security-academy.net/?search=test%0d%0aSet-Cookie:%20csrf=fake%3b%20SameSite=None" onerror="document.forms[0].submit();"/>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b87a8f73-388b-412f-abf3-9bd5bec8c221)
+
+* Change the email address in your exploit so that it doesn't match your own.
+* Make sure that `csrf` value given as `fake`
+* Store the exploit, then click `Deliver to victim` to solve the lab.
+* Thus, the lab is solved.
+
+## Lab 7: SameSite Lax bypass via method override
+
+This lab's change email function is vulnerable to CSRF. To solve the lab, perform a CSRF attack that changes the victim's email address. You should use the provided exploit server to host your attack.
+
+You can log in to your own account using the following credentials: wiener:peter
+
+### Sol :
+
