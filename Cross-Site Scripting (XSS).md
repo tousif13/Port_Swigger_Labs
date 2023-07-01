@@ -73,6 +73,50 @@ To solve this lab, perform a cross-site scripting attack that calls the alert fu
 * Break out of the img attribute by searching for:
 
       "><svg onload=alert(1)>
+  
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/819eb6ca-4eb7-4acf-b266-883cd98b57c0)
 
 * Alert is generated.
+* Thus, the lab is solved.
+
+## Lab 5: DOM XSS in document.write sink using source location.search inside a select element
+
+This lab contains a DOM-based cross-site scripting vulnerability in the stock checker functionality. It uses the JavaScript document.write function, which writes data out to the page. The document.write function is called with data from location.search which you can control using the website URL. The data is enclosed within a select element.
+
+To solve this lab, perform a cross-site scripting attack that breaks out of the select element and calls the alert function.
+
+### Sol :
+
+* On the product pages, notice that the dangerous JavaScript extracts a `storeId` parameter from the `location.search` source. It then uses `document.write` to create a new option in the select element for the stock checker functionality.
+  
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8df68d39-7c7c-47cd-8752-08a0ab072c1a)
+
+* Add a `storeId` query parameter to the URL and enter a random alphanumeric string as its value. Request this modified URL.
+* In the browser, notice that your random string is now listed as one of the options in the drop-down list.
+* Right-click and inspect the drop-down list to confirm that the value of your storeId parameter has been placed inside a select element
+* Change the URL to include a suitable XSS payload inside the storeId parameter as follows:
+
+        product?productId=1&storeId="></select><img%20src=1%20onerror=alert(1)>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/1df96d5d-2e05-4bfb-8ab6-2948ad55c55b)
+
+* Thus, the alert is generated and lab is solved.
+
+## Lab 6: DOM XSS in innerHTML sink using source location.search
+
+This lab contains a DOM-based cross-site scripting vulnerability in the search blog functionality. It uses an innerHTML assignment, which changes the HTML contents of a div element, using data from location.search.
+
+To solve this lab, perform a cross-site scripting attack that calls the alert function.
+
+### Sol :
+
+* Enter the following into the into the search box:
+
+        <img src=1 onerror=alert(1)>
+
+* Click Search
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/2850c3c7-3b07-470d-b5bb-0e4365cf2d17)
+
+* The value of the `src` attribute is invalid and throws an error. This triggers the `onerror` event handler, which then calls the `alert()` function. As a result, the payload is executed whenever the user's browser attempts to load the page containing your malicious post.
 * Thus, the lab is solved.
