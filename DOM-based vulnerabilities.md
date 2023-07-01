@@ -110,4 +110,38 @@ This lab contains a DOM-clobbering vulnerability. The comment functionality allo
 
     let defaultAvatar = window.defaultAvatar || {avatar: '/resources/images/avatarDefault.svg'}
 
-   
+* Go to one of the blog posts and create a comment containing the following anchors:
+
+       <a id=defaultAvatar><a id=defaultAvatar name=avatar href="cid:&quot;onerror=alert(1)//">
+
+* Return to the blog post and create a second comment containing any random text. The next time the page loads, the alert() is called.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c1fc231c-4265-4e0b-94af-0bb1029955c4)
+
+* The `defaultAvatar` object is implemented using this dangerous pattern containing the logical `OR` operator in conjunction with a global variable. This makes it vulnerable to DOM clobbering.
+* You can clobber this object using anchor tags. Creating two anchors with the same ID causes them to be grouped in a DOM collection. The `name` attribute in the second anchor contains the value `avatar`, which will clobber the `avatar` property with the contents of the `href` attribute
+* Notice that the site uses the DOMPurify filter in an attempt to reduce DOM-based vulnerabilities. However, DOMPurify allows you to use the `cid:` protocol, which does not URL-encode double-quotes. This means you can inject an encoded double-quote that will be decoded at runtime. As a result, the injection described above will cause the `defaultAvatar` variable to be assigned the clobbered property `{avatar: ‘cid:"onerror=alert(1)//’}` the next time the page is loaded.
+* When you make a second post, the browser uses the newly-clobbered global variable, which smuggles the payload in the `onerror` event handler and triggers the `alert()`.
+* Thus, the lab is solved.
+
+## Lab 7: Clobbering DOM attributes to bypass HTML filters
+
+This lab uses the HTMLJanitor library, which is vulnerable to DOM clobbering. To solve this lab, construct a vector that bypasses the filter and uses DOM clobbering to inject a vector that calls the print() function. You may need to use the exploit server in order to make your vector auto-execute in the victim's browser.
+
+### Sol :
+
+* Go to one of the blog posts and create a comment containing the following HTML:
+
+       <form id=x tabindex=0 onfocus=print()><input id=attributes>
+
+  ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e60229ed-5b83-419d-8898-a9251e441730)
+
+* Go to the exploit server and add the following iframe to the body:
+
+       <iframe src=https://YOUR-LAB-ID.web-security-academy.net/post?postId=3 onload="setTimeout(()=>this.src=this.src+'#x',500)">
+  
+* Make sure that postId is same in two payloads.
+* Store the exploit and deliver it to the victim. The next time the page loads, the print() function is called.
+* The library uses the `attributes` property to filter HTML `attributes`. However, it is still possible to clobber the attributes property itself, causing the length to be undefined. This allows us to inject any attributes we want into the `form` element. In this case, we use the `onfocus` attribute to smuggle the `print()` function.
+* When the `iframe` is loaded, after a 500ms delay, it adds the `#x` fragment to the end of the page URL. The delay is necessary to make sure that the comment containing the injection is loaded before the JavaScript is executed. This causes the browser to focus on the element with the ID `x`, which is the form we created inside the comment. The `onfocus` event handler then calls the `print()` function.
+* Thus, the lab is solved.
