@@ -39,4 +39,75 @@ This lab demonstrates a DOM-based redirection vulnerability that is triggered by
 * When the `iframe` loads, the `postMessage()` method sends the JavaScript payload to the main page. The event listener spots the `http:` string and proceeds to send the payload to the `location.href` sink, where the `print()` function is called.
 * Thus , the lab is solved.
 
-## Lab 3: 
+## Lab 3: DOM XSS using web messages and JSON.parse
+
+This lab uses web messaging and parses the message as JSON. To solve the lab, construct an HTML page on the exploit server that exploits this vulnerability and calls the print() function.
+
+### Sol :
+
+* Notice that the home page contains an event listener that listens for a web message. This event listener expects a string that is parsed using `JSON.parse()`. In the JavaScript, we can see that the event listener expects a `type` property and that the `load-channel` case of the `switch` statement changes the `iframe src` attribute.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/54963e74-6593-46b8-b362-f613cc2908d0)
+
+* Go to the exploit server and add the following iframe to the body, remembering to replace YOUR-LAB-ID with your lab ID:
+
+       <iframe src=https://YOUR-LAB-ID.web-security-academy.net/ onload='this.contentWindow.postMessage("{\"type\":\"load-channel\",\"url\":\"javascript:print()\"}","*")'>
+
+* Store the exploit and deliver it to the victim.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/efba68f8-491b-4109-abb7-27e085fa4a52)
+
+* When the `iframe` we constructed loads, the `postMessage()` method sends a web message to the home page with the type `load-channel`. The event listener receives the message and parses it using `JSON.parse()` before sending it to the `switch`.
+* The `switch` triggers the `load-channel` case, which assigns the `url` property of the message to the `src` attribute of the `ACMEplayer.element` `iframe`. However, in this case, the `url` property of the message actually contains our JavaScript payload.
+* As the second argument specifies that any `targetOrigin` is allowed for the web message, and the event handler does not contain any form of origin check, the payload is set as the `src` of the `ACMEplayer.element` `iframe`. The `print()` function is called when the victim loads the page in their browser.
+* Thus, the lab is solved.
+
+## Lab 4: DOM-based open redirection
+
+This lab contains a DOM-based open-redirection vulnerability. To solve this lab, exploit this vulnerability and redirect the victim to the exploit server.
+
+### Sol :
+
+* The blog post page contains the following link, which returns to the home page of the blog:
+
+      <a href='#' onclick='returnURL' = /url=https?:\/\/.+)/.exec(location); if(returnUrl)location.href = returnUrl[1];else location.href = "/"'>Back to Blog</a>
+
+* The `url` parameter contains an open redirection vulnerability that allows you to change where the `Back to Blog` link takes the user. To solve the lab, construct and visit the following URL, remembering to change the URL to contain your lab ID and your exploit server ID:
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/d9cc1b29-ec4a-45d4-bea3-017748a92356)
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/39232785-3c8e-46e7-8a4c-33403ad1243b)
+
+* Thus, the lab is solved.
+
+## Lab 5: DOM-based cookie manipulation
+
+This lab demonstrates DOM-based client-side cookie manipulation. To solve this lab, inject a cookie that will cause XSS on a different page and call the print() function. You will need to use the exploit server to direct the victim to the correct pages.
+
+### Sol :
+
+* Notice that the home page uses a client-side cookie called lastViewedProduct, whose value is the URL of the last product page that the user visited.
+* Go to the exploit server and add the following iframe to the body, remembering to replace YOUR-LAB-ID with your lab ID:
+
+      <iframe src="https://YOUR-LAB-ID.web-security-academy.net/product?productId=1&'><script>print()</script>" onload="if(!window.x)this.src='https://YOUR-LAB-ID.web-security-academy.net';window.x=1;">
+
+* Store the exploit and deliver it to the victim.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0bd658f1-8aed-477f-91eb-a834e91e11b1)
+
+* The original source of the `iframe` matches the URL of one of the product pages, except there is a JavaScript payload added to the end. When the `iframe` loads for the first time, the browser temporarily opens the malicious URL, which is then saved as the value of the `lastViewedProduct` cookie. The `onload` event handler ensures that the victim is then immediately redirected to the home page, unaware that this manipulation ever took place. While the victim's browser has the poisoned cookie saved, loading the home page will cause the payload to execute.
+* Thus, the lab is solved.
+
+## Lab 6: Exploiting DOM clobbering to enable XSS
+
+This lab contains a DOM-clobbering vulnerability. The comment functionality allows "safe" HTML. To solve this lab, construct an HTML injection that clobbers a variable and uses XSS to call the alert() function.
+
+### Sol :
+
+* The page for a specific blog post imports the JavaScript file loadCommentsWithDomPurify.js, which contains the following code:
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/71f83a02-a7f4-4a6e-ab45-c3360facd1ad)
+
+    let defaultAvatar = window.defaultAvatar || {avatar: '/resources/images/avatarDefault.svg'}
+
+   
