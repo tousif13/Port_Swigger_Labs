@@ -144,3 +144,30 @@ To solve this lab, make the "back" link alert document.cookie.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8a1d5e29-d6f7-4b11-a59a-dc7032d795b0)
 
 * Click Back, we will get the alert box and lab is solved.
+
+## Lab 8: DOM XSS in jQuery selector sink using a hashchange event
+
+This lab contains a DOM-based cross-site scripting vulnerability on the home page. It uses jQuery's $() selector function to auto-scroll to a given post, whose title is passed via the location.hash property.
+
+To solve the lab, deliver an exploit to the victim that calls the print() function in their browser.
+
+### Sol :
+
+* Notice the vulnerable code on the home page using Burp or the browser's DevTools
+* From the lab banner, open the exploit server
+* In the Body section, add the following malicious iframe:
+
+        <iframe src="https://YOUR-LAB-ID.web-security-academy.net/#" onload="this.src+='<img src=x onerror=print()>'"></iframe>
+
+* Store the exploit, then click View exploit to confirm that the print() function is called
+
+  ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/55eb2b3c-3861-494c-98e7-c2fa4114ec90)
+
+* Go back to the exploit server and click Deliver to victim to solve the lab.
+
+## Lab 9: Stored XSS into anchor href attribute with double quotes HTML-encoded
+
+This lab contains a stored cross-site scripting vulnerability in the comment functionality. To solve this lab, submit a comment that calls the alert function when the comment author name is clicked
+
+### Sol :
+
