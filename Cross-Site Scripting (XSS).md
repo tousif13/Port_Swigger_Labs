@@ -120,3 +120,27 @@ To solve this lab, perform a cross-site scripting attack that calls the alert fu
 
 * The value of the `src` attribute is invalid and throws an error. This triggers the `onerror` event handler, which then calls the `alert()` function. As a result, the payload is executed whenever the user's browser attempts to load the page containing your malicious post.
 * Thus, the lab is solved.
+
+## Lab 7: DOM XSS in jQuery anchor href attribute sink using location.search source
+
+This lab contains a DOM-based cross-site scripting vulnerability in the submit feedback page. It uses the jQuery library's $ selector function to find an anchor element, and changes its href attribute using data from location.search.
+
+To solve this lab, make the "back" link alert document.cookie.
+
+### Sol :
+
+* On the Submit feedback page, change the query parameter `returnPath` to `/` followed by a random alphanumeric string.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/33ebbff8-595e-4719-9048-3817408ed3d7)
+
+* Right-click and inspect the element, and observe that your random string has been placed inside an a href attribute.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/32aec7a5-a915-4c51-b5b4-da007abe9ea8)
+
+* Change returnPath to:
+
+        javascript:alert(document.cookie)
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8a1d5e29-d6f7-4b11-a59a-dc7032d795b0)
+
+* Click Back, we will get the alert box and lab is solved.
