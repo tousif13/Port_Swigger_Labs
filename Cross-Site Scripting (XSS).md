@@ -171,3 +171,153 @@ This lab contains a stored cross-site scripting vulnerability in the comment fun
 
 ### Sol :
 
+* Post a comment with a random alphanumeric string in the "Website" input, then use Burp Suite to intercept the request and send it to Burp Repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b0bb5f34-c613-4b0c-aa98-cb957ef8ee85)
+
+* Make a second request in the browser to view the post and use Burp Suite to intercept the request and send it to Burp Repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/2f22e898-f3bb-4db6-9998-d9512b32e124)
+
+* Observe that the random string in the second Repeater tab has been reflected inside an anchor href attribute.
+* Repeat the process again but this time replace your input with the following payload to inject a JavaScript URL that calls alert:
+
+      javascript:alert(1)
+* Verify the technique worked by right-clicking, selecting "Copy URL", and pasting the URL in the browser. Clicking the name above your comment should trigger an alert.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/238e675b-7765-4ddc-a5bb-bab5c8183876)
+
+* Thus, the lab is solved.
+
+## Lab 10: Reflected XSS into a JavaScript string with angle brackets HTML encoded
+
+This lab contains a reflected cross-site scripting vulnerability in the search query tracking functionality where angle brackets are encoded. The reflection occurs inside a JavaScript string. To solve this lab, perform a cross-site scripting attack that breaks out of the JavaScript string and calls the alert function.
+
+### Sol :
+
+* Submit a random alphanumeric string in the search box, then use Burp Suite to intercept the search request and send it to Burp Repeater.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/275ef446-fd7b-491c-a50d-1636e5ebd02a)
+
+* Observe that the random string has been reflected inside a JavaScript string.
+* Replace your input with the following payload to break out of the JavaScript string and inject an alert:
+
+      '-alert(1)-'
+
+* Verify the technique worked by right clicking, selecting "Copy URL", and pasting the URL in the browser. When you load the page it should trigger an alert.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/12c93a7b-c9fd-426e-803a-961080f023dd)
+
+* Thus, the lab is solved.
+
+## Lab 11: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+
+This lab contains a DOM-based cross-site scripting vulnerability in a AngularJS expression within the search functionality.
+
+AngularJS is a popular JavaScript library, which scans the contents of HTML nodes containing the ng-app attribute (also known as an AngularJS directive). When a directive is added to the HTML code, you can execute JavaScript expressions within double curly braces. This technique is useful when angle brackets are being encoded.
+
+To solve this lab, perform a cross-site scripting attack that executes an AngularJS expression and calls the alert function.
+
+### Sol :
+
+* Enter a random alphanumeric string into the search box.
+* View the page source and observe that your random string is enclosed in an ng-app directive.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/84db6cd0-4fff-4dc2-a334-df42c37c1bb5)
+
+* Enter the following AngularJS expression in the search box:
+
+        {{$on.constructor('alert(1)')()}}
+* Click search.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/a5ed1e4a-5c17-46e0-9fd5-70ff456b4e2e)
+
+* Alert is triggered and lab is solved.
+
+## Lab 12: Reflected DOM XSS
+
+This lab demonstrates a reflected DOM vulnerability. Reflected DOM vulnerabilities occur when the server-side application processes data from a request and echoes the data in the response. A script on the page then processes the reflected data in an unsafe way, ultimately writing it to a dangerous sink.
+
+To solve this lab, create an injection that calls the alert() function
+
+### Sol :
+
+* In Burp Suite, go to the Proxy tool and make sure that the Intercept feature is switched on.
+* Back in the lab, go to the target website and use the search bar to search for a random test string, such as "XSS".
+* Return to the Proxy tool in Burp Suite and forward the request.
+* On the Intercept tab, notice that the string is reflected in a JSON response called `search-results`.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/c41c70b8-f97d-486f-9a4e-61be242e18c1)
+
+* From the Site Map, open the searchResults.js file and notice that the JSON response is used with an eval() function call.
+* By experimenting with different search strings, you can identify that the JSON response is escaping quotation marks. However, backslash is not being escaped.
+* To solve this lab, enter the following search term:
+
+      \"-alert(1)}//
+
+> As you have injected a backslash and the site isn't escaping them, when the JSON response attempts to escape the opening double-quotes character, it adds a second backslash. The resulting double-backslash causes the escaping to be effectively canceled out. This means that the double-quotes are processed unescaped, which closes the string that should contain the search term.
+
+* An arithmetic operator (in this case the subtraction operator) is then used to separate the expressions before the alert() function is called. Finally, a closing curly bracket and two forward slashes close the JSON object early and comment out what would have been the rest of the object. As a result, the response is generated as follows:
+
+      {"searchTerm":"\\"-alert(1)}//", "results":[]}
+
+* Thus, the lab is solved.
+
+## Lab 13: Stored DOM XSS
+
+This lab demonstrates a stored DOM vulnerability in the blog comment functionality. To solve this lab, exploit this vulnerability to call the alert() function.
+
+### Sol :
+
+* Post a comment containing the following vector:
+
+      <><img src=1 onerror=alert(1)>
+* In an attempt to prevent XSS, the website uses the JavaScript replace() function to encode angle brackets. However, when the first argument is a string, the function only replaces the first occurrence. We exploit this vulnerability by simply including an extra set of angle brackets at the beginning of the comment. These angle brackets will be encoded, but any subsequent angle brackets will be unaffected, enabling us to effectively bypass the filter and inject HTML.
+* Thus, the lab is solved.
+
+## Lab 14: Reflected XSS into HTML context with all tags blocked except custom ones
+
+This lab blocks all HTML tags except custom ones.
+
+To solve the lab, perform a cross-site scripting attack that injects a custom tag and automatically alerts document.cookie.
+
+### Sol :
+
+* Go to the exploit server and paste the following code, replacing YOUR-LAB-ID with your lab ID:
+
+        <script>
+      location = 'https://YOUR-LAB-ID.web-security-academy.net/?search=%3Cxss+id%3Dx+onfocus%3Dalert%28document.cookie%29%20tabindex=1%3E#x';
+      </script>
+
+* Click "Store" and "Deliver exploit to victim"
+  
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/510361b9-a53a-49f5-ba6c-a49e8cd14bb3)
+
+* This injection creates a custom tag with the ID x, which contains an onfocus event handler that triggers the alert function. The hash at the end of the URL focuses on this element as soon as the page is loaded, causing the alert payload to be called
+* Thus, the lab is solved.
+
+## Lab 15: Reflected XSS in canonical link tag
+
+This lab reflects user input in a canonical link tag and escapes angle brackets.
+
+To solve the lab, perform a cross-site scripting attack on the home page that injects an attribute that calls the alert function.
+
+To assist with your exploit, you can assume that the simulated user will press the following key combinations:
+
+      ALT+SHIFT+X
+      CTRL+ALT+X
+      Alt+X
+Please note that the intended solution to this lab is only possible in Chrome.
+
+### Sol :
+
+* Visit the following URL, replacing YOUR-LAB-ID with your lab ID:
+
+        https://YOUR-LAB-ID.web-security-academy.net/?%27accesskey=%27x%27onclick=%27alert(1)
+* This sets the `X` key as an access key for the whole page. When a user presses the access key, the `alert` function is called
+* To trigger the exploit on yourself, press one of the following key combinations:
+
+        On Windows: ALT+SHIFT+X
+      On MacOS: CTRL+ALT+X
+      On Linux: Alt+X
+* Thus, the lab is solved.
