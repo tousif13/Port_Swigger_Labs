@@ -318,6 +318,8 @@ After finished running 10,000 payloads. One will get `302` as response, which is
 
 Load the 302 response in the browser by right click and selecting `Show response in browser`.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/46f34911-853b-4af3-8a1d-62352a22ded6)
+
 Thus, the lab is solved.
 
 ## Lab 9: Offline password cracking
