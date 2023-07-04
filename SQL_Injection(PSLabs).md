@@ -562,5 +562,42 @@ To solve the lab, log in as the administrator user.
 * Right-click and select "Insert Collaborator payload" to insert a Burp Collaborator subdomain where indicated in the modified TrackingId cookie.
 * Go to the Collaborator tab, and click "Poll now". If you don't see any interactions listed, wait a few seconds and try again, since the server-side query is executed asynchronously
 * You should see some DNS and HTTP interactions that were initiated by the application as the result of your payload. The password of the administrator user should appear in the subdomain of the interaction, and you can view this within the Collaborator tab. For DNS interactions, the full domain name that was looked up is shown in the Description tab. For HTTP interactions, the full domain name is shown in the Host header in the Request to Collaborator tab.
-* In the browser, click "My account" to open the login page. Use the password to log in as the administrator user.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/e463202c-eeea-484d-8b60-f57ed431c3b9)
+
+* In the browser, click "My account" to open the login page. Use the password to log in as the administrator user.
+* Thus, the lab is solved.
+
+## Lab 19: SQL injection with filter bypass via XML encoding
+
+This lab contains a SQL injection vulnerability in its stock check feature. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables.
+
+The database contains a users table, which contains the usernames and passwords of registered users. To solve the lab, perform a SQL injection attack to retrieve the admin user's credentials, then log in to their account.
+
+### Sol :
+
+* Observe that the stock check feature sends the productId and storeId to the application in XML format.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/200c8478-90bf-4d29-8682-8eb022d0ce9d)
+
+* Send the POST /product/stock request to Burp Repeater.
+* In Burp Repeater, probe the storeId to see whether your input is evaluated. For example, try replacing the ID with mathematical expressions that evaluate to other potential IDs, for example
+
+      <storeId>1+1</storeId>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/8a30d32d-c1f6-4c60-8813-fa62a9f733d1)
+
+* Observe that your input appears to be evaluated by the application, returning the stock for different stores.
+* Try determining the number of columns returned by the original query by appending a UNION SELECT statement to the original store ID:
+
+        <storeId>1 UNION SELECT NULL</storeId>
+  
+* Observe that your request has been blocked due to being flagged as a potential attack.
+* As you can only return one column, you need to concatenate the returned usernames and passwords, for example:
+  
+        <@hex_entities>1 UNION SELECT username || '~' || password FROM users<@/hex_entities>
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/b7565838-085f-4028-ada6-722f7b103d81)
+
+* Use the administrator's credentials to log in and solve the lab.
+* Thus, the lab is solved.
