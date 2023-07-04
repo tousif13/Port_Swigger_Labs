@@ -320,25 +320,7 @@ Load the 302 response in the browser by right click and selecting `Show response
 
 Thus, the lab is solved.
 
-## Lab 9: 2FA bypass using a brute-force attack
-
-This lab's two-factor authentication is vulnerable to brute-forcing. You have already obtained a valid username and password, but do not have access to the user's 2FA verification code. To solve the lab, brute-force the 2FA code and access Carlos's account page.
-
-### Sol :
-
-
-## Lab 10: Brute-forcing a stay-logged-in cookie
-
-This lab allows users to stay logged in even after they close their browser session. The cookie used to provide this functionality is vulnerable to brute-forcing.
-
-To solve the lab, brute-force Carlos's cookie to gain access to his "My account" page.
-
-### Sol :
-
-
-
-
-## Lab 11: Offline password cracking
+## Lab 9: Offline password cracking
 
 This lab stores the user's password hash in a cookie. The lab also contains an XSS vulnerability in the comment functionality. To solve the lab, obtain Carlos's stay-logged-in cookie and use it to crack his password. Then, log in as carlos and delete his account from the "My account" page.
 
@@ -373,7 +355,7 @@ This lab stores the user's password hash in a cookie. The lab also contains an X
 
 * Thus, the lab is solved.
   
-## Lab 12: Password reset broken logic
+## Lab 10: Password reset broken logic
 
 This lab's password reset functionality is vulnerable. To solve the lab, reset Carlos's password then log in and access his "My account" page
 
@@ -408,3 +390,28 @@ Login with the `carlos:12345` credentials.
 ![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/80e760e8-4521-4454-b211-cb362ed22e7f)
 
 Thus, the lab is solved.
+
+## Lab 11: Password reset poisoning via middleware
+
+This lab is vulnerable to password reset poisoning. The user carlos will carelessly click on any links in emails that he receives. To solve the lab, log in to Carlos's account. You can log in to your own account using the following credentials: wiener:peter. Any emails sent to this account can be read via the email client on the exploit server.
+
+### Sol :
+
+* With Burp running, investigate the password reset functionality. Observe that a link containing a unique reset token is sent via email.
+* Send the POST /forgot-password request to Burp Repeater. Notice that the X-Forwarded-Host header is supported and you can use it to point the dynamically generated reset link to an arbitrary domain.
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/3e1b38a3-d778-4c12-ba48-81f17f2637c1)
+
+* Go to the exploit server and make a note of your exploit server URL
+* Go back to the request in Burp Repeater and add the X-Forwarded-Host header with your exploit server URL:
+
+      X-Forwarded-Host: YOUR-EXPLOIT-SERVER-ID.exploit-server.net
+
+* Change the username parameter to carlos and send the request.
+* Go to the exploit server and open the access log. You should see a GET /forgot-password request, which contains the victim's token as a query parameter. Make a note of this token
+
+![image](https://github.com/tousif13/Port_Swigger_Labs/assets/33444140/0b6a2897-5dd7-4492-ba09-7ce46fc3ea59)
+
+* Go back to your email client and copy the valid password reset link
+* Paste this into the browser and change the value of the temp-forgot-password-token parameter to the value that you stole from the victim
+
